@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "harebare-app"
+version = "0.1.0"
+description = "An advanced career counseling app leveraging a Large Language Model (LLM) to provide personalized guidance and advice"
+license = "MIT"
+authors = ["skip"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.105.0"
+uvicorn = "^0.24.0.post1"
+sqlalchemy = "^2.0.23"
+sqlalchemy-utils = "^0.41.1"
+psycopg2 = "^2.9.9"
+psycopg2-binary = "^2.9.9"
+alembic = "^1.13.0"
+pydantic = "^2.5.2"
+python-jose = "^3.3.0"
+python-multipart = "^0.0.6"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+skip = "^0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

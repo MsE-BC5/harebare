@@ -1,0 +1,66 @@
+version: "3"
+
+services:
+# FastAPI
+  serverapi:
+    # db起動後に立ち上げる
+    # links:
+    #   - db
+    depends_on:
+      - db
+    container_name: "api"
+    # path配下のDockerfile読み込み
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./serverapi:/app
+    networks:
+      - local-net
+
+
+  # postgresSQL
+  db:
+    image: postgres:latest
+    container_name: "postgres"
+    restart: always
+    tty: true
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      TZ: Asia/Tokyo
+      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --locale=C
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-store:/var/lib/postgresql/data
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - local-net
+
+
+  #  Next.js
+  next:
+    
+    build:
+      context:  ./nextapp
+      dockerfile: Dockerfile
+
+    container_name: "next"
+
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./nextapp:/usr/src/app
+      - /user/src/app/node_modules
+    command: npm run dev
+
+volumes:
+  db-store:
+
+  # コンテナ間で通信を行うためのネットワークブリッジ
+networks:
+  local-net:
+    driver: bridge
