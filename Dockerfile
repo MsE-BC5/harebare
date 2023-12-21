@@ -14,7 +14,7 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ JST-9
 ENV TERM xterm
 
-RUN pip install --upgrade pip
+#RUN pip install --upgrade pip
 
 #Poetryを公式のスクリプトを使用してインストール
 RUN curl -sSL https://install.python-poetry.org | python3 -
@@ -26,8 +26,9 @@ ENV PATH /root/.local/bin:$PATH
 RUN poetry config virtualenvs.create false
 
 #Install uvicorn
-RUN pip install uvicorn fastapi
+#RUN pip install uvicorn fastapi
 
 COPY . /app
+RUN poetry install --no-dev
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
