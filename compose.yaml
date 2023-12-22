@@ -14,7 +14,10 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./serverapi:/app
+      # - ./serverapi:/app
+      - .:/app
+      - ./pyproject.toml:/app/pyproject.toml
+
     networks:
       - local-net
 
@@ -38,7 +41,6 @@ services:
     networks:
       - local-net
 
-
   #  Next.js
   next:
     
@@ -56,6 +58,22 @@ services:
       - ./nextapp:/usr/src/app
       - /user/src/app/node_modules
     command: npm run dev
+    networks:
+      - local-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    volumes:
+      - ./docker/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+    ports:
+      - "8888:80"
+    environment:
+      TZ: Asia/Tokyo
+      PGADMIN_DEFAULT_EMAIL: 'aaa@bbb.ccc'
+      PGADMIN_DEFAULT_PASSWORD: 'pgpassword'
 
 volumes:
   db-store:
