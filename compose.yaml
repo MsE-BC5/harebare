@@ -52,10 +52,13 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./nextapp:/usr/src/app
       - /user/src/app/node_modules
     command: npm run dev
+    networks:
+      - local-net
 
 volumes:
   db-store:
