@@ -8,7 +8,7 @@ from alembic import context
 # from code.db import Base
 # from code.model import calorie_data_example_Table
 
-from serverapi.api.endpoints.database import Base
+from serverapi.database.database import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

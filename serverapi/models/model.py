@@ -1,8 +1,9 @@
 from sqlalchemy import Column, ForeignKey, String, BigInteger, Text, DateTime
+from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 import uuid
-from database import Base, Engine
+from ..database.database import Base, Engine
 
 
 class Gender(Base):
@@ -10,8 +11,14 @@ class Gender(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     gender_type = Column(String(20))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 class AgeRange(Base):
@@ -19,8 +26,14 @@ class AgeRange(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     range = Column(String(20))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 class Address(Base):
@@ -28,8 +41,14 @@ class Address(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     prefecture = Column(String(10))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 class TalkMode(Base):
@@ -37,8 +56,14 @@ class TalkMode(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     mode = Column(String(10))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 class User(Base):
@@ -55,8 +80,14 @@ class User(Base):
     firebase_uid = Column(String(50))
     OAuth_provider = Column(String(30))
     OAuth_provider_id = Column(String(50))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
     gender = relationship("Gender")
     age_range = relationship("AgeRange")
@@ -73,8 +104,14 @@ class Query(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
     query_text = Column(Text)
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
     user = relationship("User")
     responses = relationship("Response")
@@ -87,8 +124,14 @@ class Response(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
     query_id = Column(UUID(as_uuid=True), ForeignKey('queries.id'))
     response_text = Column(Text)
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 class Payment(Base):
@@ -101,8 +144,14 @@ class Payment(Base):
     currency = Column(String(3))
     status = Column(String(20))
     payment_date = Column(DateTime(timezone=True))
-    created_at = Column(DateTime(timezone=True))
-    updated_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
 
 
 def main():

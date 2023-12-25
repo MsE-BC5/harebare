@@ -6,17 +6,20 @@ from datetime import datetime
 
 
 class UserBase(BaseModel):
-    name: Optional[str] = None
+    name: str
+    email: str
     nick_name: Optional[str] = None
-    email: Optional[str] = None
     firebase_uid: Optional[str] = None
     OAuth_provider: Optional[str] = None
     OAuth_provider_id: Optional[str] = None
+    gender_id: Optional[UUID] = None
+    age_range_id: Optional[UUID] = None
+    address_id: Optional[UUID] = None
+    talk_mode_id: Optional[UUID] = None
 
 
 class UserCreate(UserBase):
-    name: str
-    email: str
+    pass
 
 
 class UserUpdate(UserBase):
@@ -25,15 +28,49 @@ class UserUpdate(UserBase):
 
 class UserResponse(UserBase):
     id: UUID
-    gender_id: UUID
-    age_range_id: UUID
-    address_id: UUID
-    talk_mode_id: UUID
     created_at: datetime
     updated_at: Optional[datetime] = None
 
     class Config:
         orm_mode = True
+
+# class UserBase(BaseModel):
+#     name: Optional[str] = None
+#     nick_name: Optional[str] = None
+#     email: Optional[str] = None
+#     firebase_uid: Optional[str] = None
+#     OAuth_provider: Optional[str] = None
+#     OAuth_provider_id: Optional[str] = None
+
+
+# class UserCreate(UserBase):
+#     name: str
+#     email: str
+#     nick_name: Optional[str] = None
+#     firebase_uid: Optional[str] = None
+#     OAuth_provider: Optional[str] = None
+#     OAuth_provider_id: Optional[str] = None
+#     gender_id: Optional[UUID] = None
+#     age_range_id: Optional[UUID] = None
+#     address_id: Optional[UUID] = None
+#     talk_mode_id: Optional[UUID] = None
+
+
+# class UserUpdate(UserBase):
+#     pass
+
+
+# class UserResponse(UserBase):
+#     id: UUID
+#     gender_id: UUID
+#     age_range_id: UUID
+#     address_id: UUID
+#     talk_mode_id: UUID
+#     created_at: datetime
+#     updated_at: Optional[datetime] = None
+
+#     class Config:
+#         orm_mode = True
 
 
 class GenderBase(BaseModel):

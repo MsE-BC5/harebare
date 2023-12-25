@@ -25,8 +25,10 @@ def upgrade():
         sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
                   primary_key=True, default=uuid.uuid4),
         sa.Column('gender_type', sa.String(length=20), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
     # AgeRange テーブルの作成
@@ -35,8 +37,10 @@ def upgrade():
         sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
                   primary_key=True, default=uuid.uuid4),
         sa.Column('range', sa.String(length=20), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
     # Address テーブルの作成
@@ -45,8 +49,10 @@ def upgrade():
         sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
                   primary_key=True, default=uuid.uuid4),
         sa.Column('prefecture', sa.String(length=10), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
     # TalkMode テーブルの作成
@@ -55,8 +61,10 @@ def upgrade():
         sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
                   primary_key=True, default=uuid.uuid4),
         sa.Column('mode', sa.String(length=10), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
     # user テーブルの作成
     op.create_table(
@@ -77,8 +85,10 @@ def upgrade():
         sa.Column('firebase_uid', sa.String(length=50), nullable=True),
         sa.Column('OAuth_provider', sa.String(length=30), nullable=True),
         sa.Column('OAuth_provider_id', sa.String(length=50), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
     # Query テーブルの作成
     op.create_table(
@@ -88,8 +98,10 @@ def upgrade():
         sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
                   sa.ForeignKey('users.id'), nullable=True),
         sa.Column('query_text', sa.Text, nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
     # Response テーブルの作成
@@ -102,8 +114,10 @@ def upgrade():
         sa.Column('query_id', sa.dialects.postgresql.UUID(as_uuid=True),
                   sa.ForeignKey('queries.id'), nullable=True),
         sa.Column('response_text', sa.Text, nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
     # Payment テーブルの作成
@@ -118,8 +132,10 @@ def upgrade():
         sa.Column('currency', sa.String(length=3), nullable=True),
         sa.Column('status', sa.String(length=20), nullable=True),
         sa.Column('payment_date', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  nullable=False, default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True),
+                  nullable=True, onupdate=sa.func.now()),
     )
 
 

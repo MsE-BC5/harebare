@@ -54,6 +54,7 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./nextapp:/usr/src/app
       - /user/src/app/node_modules
@@ -74,6 +75,8 @@ services:
       TZ: Asia/Tokyo
       PGADMIN_DEFAULT_EMAIL: 'aaa@bbb.ccc'
       PGADMIN_DEFAULT_PASSWORD: 'pgpassword'
+    networks:
+      - local-net
 
 volumes:
   db-store:
