@@ -9,7 +9,7 @@ router = APIRouter()
 # 環境変数の読み込み
 load_dotenv()
 
-llm = OpenAI(temperature=0)
+llm = OpenAI(temperature=0.2)
 
 template = """
 あなたは環境やライフステージの変化に伴うキャリアに悩む人々の相談相手の役割を担っています。
