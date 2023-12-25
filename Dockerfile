@@ -25,9 +25,11 @@ ENV PATH /root/.local/bin:$PATH
 #Poetryのバーチャル環境の作成を無効に設定
 RUN poetry config virtualenvs.create false
 
+
 #Install uvicorn
-RUN pip install uvicorn fastapi
+#RUN pip install uvicorn fastapi
 
 COPY . /app
+RUN poetry install --no-dev
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
