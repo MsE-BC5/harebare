@@ -64,6 +64,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    user: "root" # 本番環境では消す
     restart: always
     volumes:
       - ./docker/pgadmin:/var/lib/pgadmin

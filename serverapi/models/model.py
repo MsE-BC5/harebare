@@ -1,4 +1,7 @@
-from sqlalchemy import Column, ForeignKey, String, BigInteger, Text, DateTime
+from sqlalchemy import (
+    Column, ForeignKey, String,
+    BigInteger, Text, DateTime
+)
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -93,17 +96,42 @@ class User(Base):
     age_range = relationship("AgeRange")
     address = relationship("Address")
     talk_mode = relationship("TalkMode")
-    queries = relationship("Query")
+    # queries = relationship("Query")
+    # responses = relationship("Response")
+    llm_texts = relationship("Llm_text")
     payments = relationship("Payment")
-    responses = relationship("Response")
+    jobs = relationship("Job", back_populates="user")
 
 
-class Query(Base):
-    __tablename__ = 'queries'
+class Job(Base):
+    __tablename__ = 'jobs'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    job_title = Column(String(50), nullable=False)
+    years_of_experience = Column(String(20), nullable=False)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey('users.id'),
+        nullable=False)
+    created_at = Column(
+        DateTime(timezone=True),
+        default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now()
+    )
+
+    user = relationship("User", back_populates="jobs")
+
+
+class Llm_text(Base):
+    __tablename__ = 'llm_texts'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
-    query_text = Column(Text)
+    request_text = Column(Text)
+    response_text = Column(Text)
     created_at = Column(
         DateTime(timezone=True),
         default=func.now())
@@ -114,24 +142,41 @@ class Query(Base):
     )
 
     user = relationship("User")
-    responses = relationship("Response")
+
+# class Query(Base):
+#     __tablename__ = 'queries'
+
+#     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+#     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+#     query_text = Column(Text)
+#     created_at = Column(
+#         DateTime(timezone=True),
+#         default=func.now())
+#     updated_at = Column(
+#         DateTime(timezone=True),
+#         default=func.now(),
+#         onupdate=func.now()
+#     )
+
+#     user = relationship("User")
+#     responses = relationship("Response")
 
 
-class Response(Base):
-    __tablename__ = 'responses'
+# class Response(Base):
+#     __tablename__ = 'responses'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
-    query_id = Column(UUID(as_uuid=True), ForeignKey('queries.id'))
-    response_text = Column(Text)
-    created_at = Column(
-        DateTime(timezone=True),
-        default=func.now())
-    updated_at = Column(
-        DateTime(timezone=True),
-        default=func.now(),
-        onupdate=func.now()
-    )
+#     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+#     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+#     query_id = Column(UUID(as_uuid=True), ForeignKey('queries.id'))
+#     response_text = Column(Text)
+#     created_at = Column(
+#         DateTime(timezone=True),
+#         default=func.now())
+#     updated_at = Column(
+#         DateTime(timezone=True),
+#         default=func.now(),
+#         onupdate=func.now()
+#     )
 
 
 class Payment(Base):

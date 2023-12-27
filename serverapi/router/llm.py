@@ -1,7 +1,10 @@
 from langchain.prompts import PromptTemplate
 from langchain.llms import OpenAI
 from dotenv import load_dotenv
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from serverapi.database.database import get_db
+from serverapi.services.service import UserService
 
 
 router = APIRouter()
@@ -31,10 +34,14 @@ prompt = PromptTemplate(
 
 
 @router.post("/chat")
-async def create_chat(chat: dict):
+async def create_chat(chat: dict, db: Session = Depends(get_db)):
     try:
         # フロントエンドからの質問を受け取る
         user_question = chat.get("query_text")
+
+        # user_idをフロントから受け取る（一旦べた書き）
+        # user_id = chat.get("user_id")
+        user_id = "dc9bfcc7-52c9-4d3d-9279-39eb2d5b4d3d"
 
         # ChatGPTに送るためのプロンプトを作成
         prompt_text = prompt.format(subject=user_question)
@@ -44,10 +51,13 @@ async def create_chat(chat: dict):
         llm = OpenAI(
             model_name="text-davinci-003",
             max_tokens=1000)
-       
+
         response = llm(prompt_text)
 
         print(llm(prompt_text))
+
+        # 問い合わせと回答をDBに保存
+        UserService(db).create_llm_text(user_question, response, user_id)
 
         return {"response": response}
 
@@ -57,7 +67,7 @@ async def create_chat(chat: dict):
 
 data_store = []
 
-
+# -----------------------------------------------
 # @router.get("/")
 # async def get_data():
 #     # 保存されている最後のデータを取得して返す
@@ -65,4 +75,3 @@ data_store = []
 #         return data_store[-1]
 #     else:
 #         return {"message": "No data available"}
-

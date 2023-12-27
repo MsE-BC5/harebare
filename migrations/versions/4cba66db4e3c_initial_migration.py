@@ -5,17 +5,15 @@ Revises:
 Create Date: 2023-12-22 06:01:47.740728
 
 """
-from typing import Sequence, Union
-import uuid
 from alembic import op
 import sqlalchemy as sa
-
+import uuid
 
 # revision identifiers, used by Alembic.
-revision: str = '4cba66db4e3c'
-down_revision: Union[str, None] = None
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision = '4cba66db4e3c'
+down_revision = None
+branch_labels = None
+depends_on = None
 
 
 def upgrade():
@@ -66,6 +64,7 @@ def upgrade():
         sa.Column('updated_at', sa.DateTime(timezone=True),
                   nullable=True, onupdate=sa.func.now()),
     )
+
     # user テーブルの作成
     op.create_table(
         'users',
@@ -90,35 +89,74 @@ def upgrade():
         sa.Column('updated_at', sa.DateTime(timezone=True),
                   nullable=True, onupdate=sa.func.now()),
     )
-    # Query テーブルの作成
+
+    # job テーブルの作成
     op.create_table(
-        'queries',
-        sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
-                  primary_key=True, default=uuid.uuid4),
-        sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
-                  sa.ForeignKey('users.id'), nullable=True),
-        sa.Column('query_text', sa.Text, nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True),
-                  nullable=False, default=sa.func.now()),
-        sa.Column('updated_at', sa.DateTime(timezone=True),
-                  nullable=True, onupdate=sa.func.now()),
+        'jobs',
+        sa.Column(
+            'id', sa.dialects.postgresql.UUID(as_uuid=True),
+            primary_key=True, default=uuid.uuid4
+        ),
+        sa.Column('job_title', sa.String(length=50), nullable=False),
+        sa.Column('years_of_experience', sa.String(length=20), nullable=True),
+        sa.Column(
+            'user_id', sa.dialects.postgresql.UUID(as_uuid=True),
+            sa.ForeignKey('users.id'), nullable=False
+        ),
+        sa.Column(
+            'created_at', sa.DateTime(timezone=True),
+            nullable=False, default=sa.func.now()
+        ),
+        sa.Column(
+            'updated_at', sa.DateTime(timezone=True),
+            nullable=True, onupdate=sa.func.now()
+        ),
     )
 
-    # Response テーブルの作成
+    # llm_texts テーブルの作成
     op.create_table(
-        'responses',
+        'llm_texts',
         sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
                   primary_key=True, default=uuid.uuid4),
         sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
                   sa.ForeignKey('users.id'), nullable=True),
-        sa.Column('query_id', sa.dialects.postgresql.UUID(as_uuid=True),
-                  sa.ForeignKey('queries.id'), nullable=True),
+        sa.Column('request_text', sa.Text, nullable=True),
         sa.Column('response_text', sa.Text, nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True),
                   nullable=False, default=sa.func.now()),
         sa.Column('updated_at', sa.DateTime(timezone=True),
                   nullable=True, onupdate=sa.func.now()),
     )
+
+    # # Query テーブルの作成
+    # op.create_table(
+    #     'queries',
+    #     sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
+    #               primary_key=True, default=uuid.uuid4),
+    #     sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
+    #               sa.ForeignKey('users.id'), nullable=True),
+    #     sa.Column('query_text', sa.Text, nullable=True),
+    #     sa.Column('created_at', sa.DateTime(timezone=True),
+    #               nullable=False, default=sa.func.now()),
+    #     sa.Column('updated_at', sa.DateTime(timezone=True),
+    #               nullable=True, onupdate=sa.func.now()),
+    # )
+
+    # # Response テーブルの作成
+    # op.create_table(
+    #     'responses',
+    #     sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True),
+    #               primary_key=True, default=uuid.uuid4),
+    #     sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
+    #               sa.ForeignKey('users.id'), nullable=True),
+    #     sa.Column('query_id', sa.dialects.postgresql.UUID(as_uuid=True),
+    #               sa.ForeignKey('queries.id'), nullable=True),
+    #     sa.Column('response_text', sa.Text, nullable=True),
+    #     sa.Column('created_at', sa.DateTime(timezone=True),
+    #               nullable=False, default=sa.func.now()),
+    #     sa.Column('updated_at', sa.DateTime(timezone=True),
+    #               nullable=True, onupdate=sa.func.now()),
+    # )
 
     # Payment テーブルの作成
     op.create_table(
