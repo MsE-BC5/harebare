@@ -41,7 +41,7 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
 
         # user_idをフロントから受け取る（一旦べた書き）
         # user_id = chat.get("user_id")
-        user_id = "dc9bfcc7-52c9-4d3d-9279-39eb2d5b4d3d"
+        user_id = "12345678-9012-3456-7890-526715275000"
 
         # ChatGPTに送るためのプロンプトを作成
         prompt_text = prompt.format(subject=user_question)
