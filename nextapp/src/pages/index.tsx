@@ -1,20 +1,16 @@
-//Home/page.tsx
-
-
-
-
-"use client"
 
 import Link from "next/link";
 
 export default function Main() {
   return (
-    <>
-      <div className="text-pink-300 text-7xl font-medium tracking-wide text-center font-HachiMaruPop">
+      <div
+    className="text-4xl bg-cover"
+  > 
+      <div className="text-pink-300 text-7xl font-medium tracking-wide text-center ">
         <h1>はればれ</h1>
       </div>
 
-      <div className="m-5 p-40 shadow-xl text-center">
+      <div className="m-5 p-40 shadow-xl text-center text-2xl">
         はればれの説明
       </div>
 
@@ -24,19 +20,9 @@ export default function Main() {
             ログイン
           </button>
         </Link>
-        <Link href="/mypage">新規登録</Link>
+        <Link href="/Login">新規登録</Link>
       </div>
-  </>
+      </div> 
+    
   );
 }
-
-
-
-
-
-
-
-
-
-
-

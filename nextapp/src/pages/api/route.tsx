@@ -1,6 +1,4 @@
-//route.tsx
-
-import { NextResponse } from "next/server";
+import { NextResponse} from "next/server";
 
 export async function GET() {
   try {
@@ -21,11 +19,12 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  console.log("!!!!!!!!!!!!!!")
   try {
     const payload = await request.json();
 
     // パースしたペイロードを使用してFastAPIサーバーにPOSTリクエストを送信
-    const response = await fetch("http://serverapi:8000/chat", {
+    const response = await fetch("http://serverapi:8000/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,4 +57,3 @@ export async function POST(request) {
     });
   }
 }
-
