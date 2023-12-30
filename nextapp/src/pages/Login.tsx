@@ -3,10 +3,9 @@ import { useAuth } from "../../context/auth";
 import { login, logout } from "../../lib/auth";
 import { FC, useState, useEffect } from "react";
 import router, { useRouter } from "next/router";
-import { addDoc, collection, doc, onSnapshot, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
 
-//import { useFirestore } from "../../context/auth"; // あなたのFirestoreコンテキストのパスを指定
 
 interface CheckoutComponentProps {
   // ここに必要なプロパティを追加
@@ -18,7 +17,8 @@ const CheckoutComponent: FC<CheckoutComponentProps> = () => {
   //const authUser = useAuth(); // あなたのFirestoreコンテキストから firestore を取得
   const [user, setUser] = useState<User | null>(null);
   const firestore = getFirestore();
-
+  const router = useRouter(); 
+  
   useEffect(() => {
     // ユーザーのログイン状態が変わったときに実行されるコード
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,11 +35,22 @@ const CheckoutComponent: FC<CheckoutComponentProps> = () => {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
       setUser(userCredential.user);
-      console.log('login success.');
-    } catch (error) {
-      console.error(error);
+      // Firestoreでユーザーが登録済みかどうかの確認
+    const userRef = doc(collection(firestore, 'users'), userCredential.user.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      // ユーザーが登録済みの場合は/homeに遷移
+      router.push('/Home');
+    } else {
+      // ユーザーが初めての場合は/registerに遷移
+      router.push('/register');
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   const logout = async () => {
     try {
@@ -97,6 +108,7 @@ const CheckoutComponent: FC<CheckoutComponentProps> = () => {
         <button onClick={loginWithGoogle}>Google認証でログイン</button>
         <button onClick={checkout}>支払い</button>
         <button onClick={logout}>logout</button>
+        
       </div>
     </div>
   );

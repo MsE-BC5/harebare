@@ -1,3 +1,5 @@
+//context//auth.tsx
+
 // user.tsで設定したUser、新しいコンテキストを作成するcreateをreactからインポート
 import { User } from "../types/user";
 import { auth, db } from "../lib/firebase";
@@ -29,31 +31,45 @@ const AuthContext = createContext<UserContextType>(undefined);
 // 子要素がユーザー情報を提供できるようにしている
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<UserContextType>();
+  console.log("AuthProvider: Rendered"); // ログを追加 
+  const [user, setUser] = useState<UserContextType>();
 
-// useStateを使用してuserという変数を定義し、更新関数としてsetUserを指定
-// 型は作成したUserContextType
+  // 新規登録情報のステート
+  const [registrationInfo, setRegistrationInfo] = useState<{ name: string; email: string }>({ name: "", email: "" });
 
 //useEffectを用いて認証状態が変化したときに呼ばれる
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
     try {
+      //console.log('onAuthStateChanged callback', firebaseUser);
       if (firebaseUser) {
+        console.log('firebaseUser', firebaseUser);
         const ref = doc(db, `users/${firebaseUser.uid}`);
+        console.log('ref', ref);
         const snap = await getDoc(ref);
+        console.log('getDoc',ref);
 
         if (snap.exists()) {
           const appUser = (await getDoc(ref)).data() as User;
+            appUser.email = firebaseUser.email || (firebaseUser.providerData[0]?.email || "");
+          console.log('appUser', appUser); // 追加
           setUser(appUser);
         } else {
+          console.log('else');
           const appUser: User = {
             id: firebaseUser.uid,
             name: firebaseUser.displayName!,
+            email: firebaseUser.email,
           };
-
           await setDoc(ref, appUser); // await を追加
           setUser(appUser);
         }
+      
+        // 新規登録情報をセット
+        setRegistrationInfo({
+          name: firebaseUser.displayName || "",
+          email: firebaseUser.email || (firebaseUser.providerData[0]?.email || ""),
+        });
       } else {
         setUser(null);
       }
@@ -67,4 +83,24 @@ useEffect(() => {
 return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => useContext(AuthContext);
+// useRegistrationInfo フック
+export const useRegistrationInfo = () => {
+  const registrationInfo = useContext(AuthContext);
+
+  if (registrationInfo === undefined) {
+    throw new Error('useRegistrationInfo must be used within an AuthProvider to access registration information.');
+  }
+
+  return registrationInfo;
+};
+
+// useAuth フック
+export const useAuth = () => {
+  const user = useRegistrationInfo();
+
+  if (user === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider to access user information.');
+  }
+
+  return user;
+};

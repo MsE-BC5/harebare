@@ -2,7 +2,7 @@
 //firebaseの初期化
 
 //　認証に必要な要素をインポート
-import { initializeApp, getApps } from "firebase/app";
+import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import * as dotenv from 'dotenv'
@@ -22,10 +22,16 @@ const firebaseConfig = {
 
 //　firebaseがすでに初期化されているかチェック、初期化されていない場合初期化する関数
 //　!getApps()?.lengthは現在アプリが 0 である場合に true を返し、初期化をする
+// if (!getApps()?.length) {
+//   initializeApp(firebaseConfig);
+// }
+
+let firebaseApp: FirebaseApp;
 if (!getApps()?.length) {
-  initializeApp(firebaseConfig);
+  firebaseApp = initializeApp(firebaseConfig);
 }
 
 //firebaseの認証とデータベースを初期化してエクスポート
 export const auth = getAuth();
 export const db = getFirestore();
+
