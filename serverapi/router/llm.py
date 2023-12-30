@@ -66,12 +66,3 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 data_store = []
-
-# -----------------------------------------------
-# @router.get("/")
-# async def get_data():
-#     # 保存されている最後のデータを取得して返す
-#     if data_store:
-#         return data_store[-1]
-#     else:
-#         return {"message": "No data available"}

@@ -1,4 +1,5 @@
 # APIエンドポイントからPOSTやPUTで受け取るデータを検証
+# from json import JSONEncoder
 from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
@@ -18,26 +19,26 @@ class UserBase(BaseModel):
 
 
 class UserResponse(UserBase):
-    id: UUID
+    # id: UUID
+    id: str  # UUIDを文字列として受け取る
 
     class Config:
         orm_mode = True
         from_attributes = True
 
 
-class LlmTextBase(BaseModel):
+class LlmTextResponse(BaseModel):
     request_text: str
     response_text: str
-    created_at: datetime
+    created_at: str  # datetimeではなくstrとして定義
 
-
-class LlmTextResponse(LlmTextBase):
-    id: UUID
-    user_id: UUID
+    # id: UUID
+    # user_id: UUID
+    id: str
+    user_id: str
 
     class Config:
         orm_mode = True
-        from_attributes = True
 
 
 class PaymentBase(BaseModel):
