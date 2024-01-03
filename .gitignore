@@ -4,3 +4,4 @@ node_modules
 pycache/
 *.pyc
 .env
+docker/

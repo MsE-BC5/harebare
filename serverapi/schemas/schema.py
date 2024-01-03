@@ -19,7 +19,6 @@ class UserBase(BaseModel):
 
 
 class UserResponse(UserBase):
-    # id: UUID
     id: str  # UUIDを文字列として受け取る
 
     class Config:
@@ -32,8 +31,6 @@ class LlmTextResponse(BaseModel):
     response_text: str
     created_at: str  # datetimeではなくstrとして定義
 
-    # id: UUID
-    # user_id: UUID
     id: str
     user_id: str
 
