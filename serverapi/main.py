@@ -43,19 +43,10 @@ def get_user(user_id: int):
     # ここでユーザー情報をデータベースから取得する処理を実装する
     # データベースへの接続やクエリの実行などを行う必要があります
     # 以下はサンプルレスポンスで、実際のデータベースから取得した結果を返すことが想定されます
-    user_info = {"user_id": user_id, "name": "John Doe", "email": "john@example.com"}
+    user_info = {"user_id": user_id,
+                 "name": "John Doe",
+                 "email": "john@example.com"}
     return user_info
-
-
-# main.pyに追加
-# @app.post("/api/payment/{id}")
-# async def create_payment(id: str, payment_item: PaymentItem):
-#     try:
-#         # 例として、受け取ったデータをそのまま返す
-#         return {"id": id, **payment_item.dict()}
-#     except Exception:
-#         # エラーハンドリング
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 if __name__ == "__main__":
