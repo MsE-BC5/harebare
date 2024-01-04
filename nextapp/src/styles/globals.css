@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+body {
+  background-image: url('/colorBack.jpg'); /* 画像のパスを適切に置き換える */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +31,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
