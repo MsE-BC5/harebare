@@ -11,6 +11,7 @@ services:
     container_name: "api"
     # path配下のDockerfile読み込み
     build: .
+    command: uvicorn main:app --host 0.0.0.0 --reload # ホットリロード本番環境では消す
     ports:
       - "8000:8000"
     volumes:
