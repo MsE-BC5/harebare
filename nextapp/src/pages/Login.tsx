@@ -1,10 +1,11 @@
 import React from "react";
-import { useAuth } from "../../context/auth";
+// import { useAuth } from "../../context/auth";
 import { login, logout } from "../../lib/auth";
 import { FC, useState, useEffect } from "react";
 import router, { useRouter } from "next/router";
 import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
+import Header from "./components/header"
 
 
 interface CheckoutComponentProps {
@@ -101,6 +102,7 @@ const CheckoutComponent: FC<CheckoutComponentProps> = () => {
   };
   return (
     <div>
+      <Header />
       <div>
         <h1> 支払いテストを実行します。 </h1>
         <div>ログイン状態: {isAuthenticated.toString()}</div>

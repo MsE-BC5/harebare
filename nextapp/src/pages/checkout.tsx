@@ -1,4 +1,4 @@
-// checkout.ts
+// pages/checkout.tsx
 
 import { doc, collection, addDoc, onSnapshot, getDocs } from 'firebase/firestore';
 import { getAuth, User } from 'firebase/auth';
@@ -8,13 +8,14 @@ import { db } from '../../lib/firebase';
 let exportedPaymentDocId: string | null = null; // エクスポートする変数
 
 type MyUser = {
-  uid: string;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-};
+    uid: string;
+    emailVerified: boolean;
+    isAnonymous: boolean;
+  };
 
 const checkout = async (user: MyUser | null, router: NextRouter) => {
   try {
+    console.log("!!!!!!!!!!!!!!!!!!checkout")
     if (!user) {
       // ログインしていない場合の処理（例: ログインページにリダイレクト）
       router.push('/login');
@@ -30,11 +31,11 @@ const checkout = async (user: MyUser | null, router: NextRouter) => {
       cancel_url: window.location.origin,
     });
 
-    // // paymentsコレクションのドキュメントIDを取得
-    // const paymentsColRef = collection(customerRef, 'payments');
-    // const paymentsQuery = await getDocs(paymentsColRef);
+    // paymentsコレクションのドキュメントIDを取得
+    const paymentsColRef = collection(customerRef, 'payments');
+    const paymentsQuery = await getDocs(paymentsColRef);
 
-     // if (!paymentsQuery.empty) {
+    // if (!paymentsQuery.empty) {
     //   // paymentsコレクション内にドキュメントが存在する場合、最初のドキュメントのIDを取得
     //   const paymentDocId = paymentsQuery.docs[0].id;
     //   console.log(paymentDocId);

@@ -1,94 +1,72 @@
-// RegisterPage.js
-import { useState, useEffect } from 'react';
-import { auth, db } from '../../lib/firebase'; 
-import { getFirestore, collection, doc, getDoc  } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 
-const RegisterPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    nickname: '',
-    email: '',
-    gender: '',
-    age: '',
-    location: '',
-    experiences: [
-      { type: '', years: '' },
-    ],
-    talkMode: '',
-  });
+const MyPage = () => {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      // Firebase Authenticationからユーザー情報を取得
-      const user = auth.currentUser;
-      console.log('Fetched data:', user);
+    const fetchUserData = async () => {
+      try {
+        // const userId = await getUserIdFromDatabase(); // データベースからユーザーIDを取得
+        const userId = '1';
+        const response = await fetch(`/api/users/${userId}`, {
+          method: 'GET',
+          headers: {
+        'Accept': 'application/json',
+  },
+});
 
-      if (user) {
-        // Firestoreからユーザーデータを取得
-        const userRef = doc(collection(db,'users'),user.uid);
-        console.log('UserRef', userRef);
-        try {
-          const userDoc = await getDoc(userRef);
-          console.log('Fetched data:', userDoc);
-      
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            console.log('Fetched user data:', userData); // ログを出力
-
-            // フォームの初期値をセット
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              name: userData.name || '',
-              email: userData.email || '',
-              // 他のフォームフィールドに関する初期値をセット
-            }));
-            
-           } else {
-          console.log('User document does not exist'); // ドキュメントが存在しない場合のログ
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          console.error('Failed to fetch user data:', response.statusText);
+          setError('Failed to fetch user data');
         }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+        setError('Internal Server Error');
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
-  }, []); // 空のdependency arrayを渡すことで、初回のみ実行される
+    fetchUserData();
+  }, []); // マウント時にのみ実行
 
-  const handleChange = (field:any, value:any) => {
-    setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const handleSubmit = async () => {
-    // フォームの送信処理
-  };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
+  if (!userData) {
+    return <div>No user data available.</div>;
+  }
+
+  // ユーザーデータを表示する JSX を追加
   return (
     <div>
-      {/* 名前 */}
-      <label>
-        名前:
-        <input
-          type="text"
-          value={formData.name}
-          onChange={(e) => handleChange('name', e.target.value)}
-        />
-      </label>
-
-      <label>
-        メールアドレス:
-        <input
-          type="text"
-          value={formData.email}
-          onChange={(e) => handleChange('email', e.target.value)}
-        />
-      </label>
-      {/* 他のフォームフィールドについても同様に追加 */}
+      <h1>My Page</h1>
+      <p>ID: {userData.id}</p>
+      <p>名前: {userData.name}</p>
+      <p>ニックネーム: {userData.nick_name}</p>
+      <p>email: {userData.email}</p>
+      <p>性別: {userData.gender}</p>
+      <p>年齢:{userData.age}</p>
+      <p>トークモード: {userData.talkmode}</p>
+      <p>前職: {userData. experienceType}</p>
+      <p>年数: {userData.experienceYears}</p>
     </div>
   );
 };
 
-export default RegisterPage;
+export default MyPage;
+
+
 
 
 // import { useState } from 'react';
@@ -268,3 +246,4 @@ export default RegisterPage;
 // };
 
 // export default RegisterPage;
+

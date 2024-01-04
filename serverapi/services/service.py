@@ -1,30 +1,42 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
-from ..models.model import User
-from ..schemas.schema import UserCreate
-from sqlalchemy.orm import Session  # この行を追加
+from ..models.model import User, Llm_text
+from sqlalchemy.orm import Session
 
 
 class UserService:
     def __init__(self, db: Session):
         self.db = db
 
-    def get_user_by_id(self, user_id: UUID) -> Optional[User]:
-        return self.db.query(User).filter(User.id == user_id).first()
+    # ユーザー情報を取得するメソッド
+    def get_user_info(self, user_id: UUID) -> Optional[User]:
+        return self.db.query(User).filter(User.user_id == user_id).first()
 
-    def create_user(self, user_data: UserCreate) -> User:
-        # 既存のユーザーをチェック
-        existing_user = (
-            self.db.query(User)
-            .filter(User.email == user_data.email)
-            .first()
-        )
+    # 新規登録するメソッド
 
-        if existing_user:
-            return None
-
-        new_user = User(**user_data.dict())
-        self.db.add(new_user)
+    # 問い合わせと回答をDBに保存するメソッド
+    def create_llm_text(
+            self,
+            request_text: str,
+            response_text: str,
+            user_id: UUID) -> Llm_text:
+        new_llm_text = Llm_text(
+            request_text=request_text,
+            response_text=response_text,
+            user_id=user_id)
+        self.db.add(new_llm_text)
         self.db.commit()
-        self.db.refresh(new_user)
-        return new_user
+        self.db.refresh(new_llm_text)
+        return new_llm_text
+
+    # LLM問い合わせした履歴を取得するメソッド
+    def get_llm_texts_by_user_id(self, user_id: UUID) -> List[Llm_text]:
+        return (
+            self.db.query(Llm_text.llm_text_id,
+                          Llm_text.user_id,
+                          Llm_text.request_text,
+                          Llm_text.response_text,
+                          Llm_text.created_at)
+            .filter(Llm_text.user_id == user_id)
+            .all()
+        )
