@@ -5,3 +5,5 @@ pycache/
 *.pyc
 .env
 docker/
+docker/pgadmin/
+.vscode/settings.json
