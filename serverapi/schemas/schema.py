@@ -6,6 +6,18 @@ from uuid import UUID
 from datetime import datetime
 
 
+# class UserBase(BaseModel):
+#     name: str
+#     email: str
+#     nick_name: Optional[str] = None
+#     firebase_uid: Optional[str] = None
+#     OAuth_provider: Optional[str] = None
+#     OAuth_provider_id: Optional[str] = None
+#     gender_id: Optional[UUID] = None
+#     age_range_id: Optional[UUID] = None
+#     address_id: Optional[UUID] = None
+#     talk_mode_id: Optional[UUID] = None
+
 class UserBase(BaseModel):
     name: str
     nick_name: Optional[str] = None
