@@ -1,14 +1,26 @@
-// pages/_app.tsx
-
 import { AuthProvider } from "../../context/auth";
-import type { AppProps } from 'next/app';
+// import '@/styles/globals.css'
+import type { AppProps } from 'next/app'
+import "tailwindcss/tailwind.css";
+import '../styles/globals.css';
 
-function App({ Component, pageProps }: AppProps) {
-  return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+export default function App({ Component, pageProps }: AppProps) {
+  return(
+  <AuthProvider>
+     <Component {...pageProps} />
+  </AuthProvider>
   );
 }
 
-export default App;
+// import { AuthProvider } from "../../context/auth";
+// import type { AppProps } from 'next/app';
+// import "tailwindcss/tailwind.css";
+// import '../styles/globals.css';
+
+// function App({ Component, pageProps }: AppProps) {
+//   return (
+//     <AuthProvider>
+//       <Component {...pageProps} />
+//     </AuthProvider>
+//   );
+// }
