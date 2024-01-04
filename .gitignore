@@ -7,3 +7,4 @@ pycache/
 docker/
 docker/pgadmin/
 .vscode/settings.json
+docker/pgadmin/sessions/
