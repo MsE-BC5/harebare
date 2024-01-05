@@ -11,10 +11,14 @@ services:
     container_name: "api"
     # path配下のDockerfile読み込み
     build: .
+    command: uvicorn main:app --host 0.0.0.0 --reload # ホットリロード本番環境では消す
     ports:
       - "8000:8000"
     volumes:
-      - ./serverapi:/app
+      # - ./serverapi:/app
+      - .:/app
+      - ./pyproject.toml:/app/pyproject.toml
+
     networks:
       - local-net
 
@@ -38,7 +42,6 @@ services:
     networks:
       - local-net
 
-
   #  Next.js
   next:
     
@@ -52,10 +55,30 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./nextapp:/usr/src/app
       - /user/src/app/node_modules
     command: npm run dev
+    networks:
+      - local-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    user: "root" # 本番環境では消す
+    restart: always
+    volumes:
+      - ./docker/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+    ports:
+      - "8888:80"
+    environment:
+      TZ: Asia/Tokyo
+      PGADMIN_DEFAULT_EMAIL: 'aaa@bbb.ccc'
+      PGADMIN_DEFAULT_PASSWORD: 'pgpassword'
+    networks:
+      - local-net
 
 volumes:
   db-store:
