@@ -4,3 +4,7 @@ node_modules
 pycache/
 *.pyc
 .env
+docker/
+docker/pgadmin/
+.vscode/settings.json
+docker/pgadmin/sessions/
