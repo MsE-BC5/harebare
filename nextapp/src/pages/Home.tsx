@@ -61,7 +61,6 @@ function Home() {
     <>
     <Header />
       <div style={{ position: 'relative', height: '1000px',  marginTop: '-150px' }}>
-        {/* <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" /> */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="flex items-center">
             <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
@@ -82,7 +81,7 @@ function Home() {
       {data && (
         <div>
           <p>POSTのデータ: {data.postData}</p>
-          <p>GETのデータ: {data.getData}</p>
+          {/* <p>GETのデータ: {data.getData}</p> */}
         </div>
       )}
     </div>

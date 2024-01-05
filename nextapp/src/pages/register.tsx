@@ -154,9 +154,7 @@ const handleFormSubmission = async (event: any) => {
 
       // ユーザー登録が完了したらcheckout関数を呼び出す
       const doCheckout = async () => {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         await checkout(userPayload, router);
-        console.log("??????????????????")
       };
 
       // 非同期関数を呼び出す
@@ -175,8 +173,10 @@ const handleFormSubmission = async (event: any) => {
   return (
     <div>
       <Header />
-      <h1>Register</h1>
+      <div style={{ position: 'relative', height: '1000px',  marginTop: '50px' }}>
+      <h1 className="text-center font-semibold text-3xl">新規登録</h1>
       <form onSubmit={handleFormSubmission}>
+      <div className='text-center m-3'>
         <label>
           Name:
           <input
@@ -185,7 +185,9 @@ const handleFormSubmission = async (event: any) => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+      </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           Email:
           <input
@@ -194,7 +196,9 @@ const handleFormSubmission = async (event: any) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           ニックネーム:
           <input
@@ -203,7 +207,9 @@ const handleFormSubmission = async (event: any) => {
             onChange={(e) => setNickname(e.target.value)}
           />
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           性別:
           <select
@@ -215,7 +221,9 @@ const handleFormSubmission = async (event: any) => {
             <option value="女">女</option>
           </select>
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           年代:
           <select
@@ -230,7 +238,9 @@ const handleFormSubmission = async (event: any) => {
             <option value="50以上">50代以上</option>
           </select>
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           居住地:
           <select
@@ -244,7 +254,9 @@ const handleFormSubmission = async (event: any) => {
             <option value="福岡">福岡</option>
           </select>
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           直近の職歴 職種:
           <select
@@ -258,7 +270,9 @@ const handleFormSubmission = async (event: any) => {
             <option value="製造">製造</option>
           </select>
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           年数:
           <select
@@ -273,7 +287,9 @@ const handleFormSubmission = async (event: any) => {
             <option value="10年以上">10年以上</option>
           </select>
         </label>
+        </div>
         <br />
+        <div className='text-center m-3'>
         <label>
           トークモード:
           <select
@@ -284,9 +300,13 @@ const handleFormSubmission = async (event: any) => {
             <option value="厳しめ">厳しめ</option>
           </select>
         </label>
-
-        <button type="submit">Register</button>
+        </div>
+        <div className="text-center m-8">
+        <button type="submit"
+        className='bg-gray-500 text-white px-4 py-2 rounded-full transition hover:opacity-60 w-1/4'>登録</button>
+      </div>
       </form>
+    </div>
     </div>
   );
   };

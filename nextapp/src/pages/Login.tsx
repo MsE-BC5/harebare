@@ -6,6 +6,7 @@ import router, { useRouter } from "next/router";
 import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
 import Header from "./components/header"
+import Image from "next/image";
 
 
 interface CheckoutComponentProps {
@@ -63,56 +64,58 @@ const CheckoutComponent: FC<CheckoutComponentProps> = () => {
     }
   };
 
-  const checkout = async () => {
-    try {
-      if (!user) {
-        // ログインしていない場合の処理（例: ログインページにリダイレクト）
-        router.push('/login');
-        return;
-      }
+  // const checkout = async () => {
+  //   try {
+  //     if (!user) {
+  //       // ログインしていない場合の処理（例: ログインページにリダイレクト）
+  //       router.push('/login');
+  //       return;
+  //     }
 
-      const customerRef = doc(collection(firestore, 'customers'), user?.uid);
-      const checkoutColRef = collection(customerRef, 'checkout_sessions');
-      const docRef = await addDoc(checkoutColRef, {
-        automatic_tax: true,
-        price: 'price_1ORTTgGcQxpc945dv18vF3Dy',
-        success_url: window.location.origin,
-        cancel_url: window.location.origin,
-      });
+  //     const customerRef = doc(collection(firestore, 'customers'), user?.uid);
+  //     const checkoutColRef = collection(customerRef, 'checkout_sessions');
+  //     const docRef = await addDoc(checkoutColRef, {
+  //       automatic_tax: true,
+  //       price: 'price_1ORTTgGcQxpc945dv18vF3Dy',
+  //       success_url: window.location.origin,
+  //       cancel_url: window.location.origin,
+  //     });
 
-      const unsubscribe = onSnapshot(docRef, (snapshot) => {
-        const data = snapshot.data();
-        if (data) {
-          const { error, url } = data;
+  //     const unsubscribe = onSnapshot(docRef, (snapshot) => {
+  //       const data = snapshot.data();
+  //       if (data) {
+  //         const { error, url } = data;
                
-          if (error) {
-            alert(`An error occurred: ${error.message}`);
-          }
-          if (url) {
-            window.location.assign(url);
-        }
-      }
-      });
+  //         if (error) {
+  //           alert(`An error occurred: ${error.message}`);
+  //         }
+  //         if (url) {
+  //           window.location.assign(url);
+  //       }
+  //     }
+  //     });
 
       // コンポーネントがアンマウントされたらクリーンアップ
-      return () => unsubscribe();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     return () => unsubscribe();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
-    <div>
+    <>
       <Header />
-      <div>
-        <h1> 支払いテストを実行します。 </h1>
-        <div>ログイン状態: {isAuthenticated.toString()}</div>
-        <div>ユーザー情報: {user?.email}</div>
-        <button onClick={loginWithGoogle}>Google認証でログイン</button>
-        <button onClick={checkout}>支払い</button>
-        <button onClick={logout}>logout</button>
-        
-      </div>
-    </div>
+      <div className="text-center" style={{ position: 'relative', height: '1000px' }}>
+        <h1 className="space-x-10 m-15 font-semibold text-4xl m-20"> Googleアカウントで登録 </h1>
+        {/* <div>ログイン状態: {isAuthenticated.toString()}</div> */}
+        <div>email: {user?.email}</div>
+        <button onClick={loginWithGoogle}
+        className="bg-orange-300 text-white px-3 py-2 transition hover:opacity-60 shadow-lg m-10 text-3xl">Googleでログイン</button>
+        {/* <button onClick={checkout}>支払い</button> */}
+        <br />
+        <button onClick={logout}
+        className=" bg-black text-white px-2 py-1 transition hover:opacity-60 shadow-lg">logout</button>
+        </div>
+    </>
   );
 };
 
