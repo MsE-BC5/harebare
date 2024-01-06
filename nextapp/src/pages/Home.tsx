@@ -1,14 +1,18 @@
+
 import React, { useState } from "react";
 import Image from "next/image";
-import Header from "./components/header"
+import Header from "./components/header";
+import { useRegistrationInfo } from "../../context/auth"; // useRegistrationInfoをインポート
 
 function Home() {
-  const [data, setData] = useState(null);
+    const [data, setData] = useState({
+    postData: null,
+    getData: null
+  });
   const [queryText, setQueryText] = useState('');
-  const [responseText, setResponseText] = useState('');
-
-  const formatTextWithNewlines = (text) => {
-    return text.split('\n').map((line, index) => (
+  const { id: userId } = useRegistrationInfo(); // ログインユーザーのIDを取得
+  const formatTextWithNewlines = (text: any) => {
+    return text.split('\n').map((line: any, index: any) => (
       <React.Fragment key={index}>
         {line}
         <br />
@@ -17,10 +21,13 @@ function Home() {
   };
 
   const fetchData = async () => {
-    try {
+      try {
       // POSTデータを作成
-      const postData = { query_text: queryText };
-
+      const postData = {
+        query_text: queryText,
+        firebase_uid: userId // ログインユーザーのIDを含める
+       };
+       console.log(postData);
       // POSTリクエスト
       const postResponse = await fetch("/api/route", {
         method: "POST",
@@ -38,7 +45,7 @@ function Home() {
       const postDataResult = await postResponse.json();
 
       // POSTのデータに改行を適用
-    const formattedPostData = formatTextWithNewlines(postDataResult.data.response);
+      const formattedPostData = formatTextWithNewlines(postDataResult.data.response);
 
       // GETリクエスト
       const getResponse = await fetch("/api/route");
@@ -46,7 +53,6 @@ function Home() {
 
       // GETのデータに改行を適用
       //const formattedGetData = formatTextWithNewlines(JSON.stringify(getData));
-
 
       setData({
         postData: formattedPostData,
@@ -69,20 +75,19 @@ function Home() {
           </div>
       
     <div className="text-center" style={{ marginTop: '-100px' }}>
-      <textarea
-        type="text"
-        value={queryText}
-        onChange={(e) => setQueryText(e.target.value)}
-        placeholder="テキストを入力してね"
-        className="rounded border bg-gray-100 p-20"
-      />
+    <textarea
+  value={queryText}
+  onChange={(e) => setQueryText(e.target.value)}
+  placeholder="テキストを入力してね"
+  className="rounded border bg-gray-100 p-20"
+/>
     <div>
       <button onClick={fetchData}
       className="bg-gray-500 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
       {data && (
         <div>
-          <p>POSTのデータ: {data.postData}</p>
-          <p>GETのデータ: {data.getData}</p>
+          <p> {data.postData}</p>
+          <p> {data.getData}</p>
         </div>
       )}
     </div>

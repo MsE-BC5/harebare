@@ -8,7 +8,9 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import checkout from "../pages/checkout";
-import Header from "./components/header"
+import Header from "./components/header";
+import { prefectures } from 'jp-prefectures';
+
 
 const Register = () => {
   const registrationInfo = useRegistrationInfo();
@@ -17,7 +19,7 @@ const Register = () => {
   // State for form fields
   const [name, setName] = useState(registrationInfo?.name || "");
   const [email, setEmail] = useState(registrationInfo?.email || "");
-  const [nickname, setNickname] = useState("");
+  const [nick_name, setNickname] = useState("");
   const [gender, setGender] = useState("");
   const [age_range, setAge] = useState("");
   const [address, setAddress] = useState("");
@@ -129,9 +131,9 @@ const handleFormSubmission = async (event: any) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: registrationInfo?.id,
+          firebase_uid: registrationInfo?.id,
           name,
-          nickname,
+          nick_name,
           email,
           gender,
           age_range,
@@ -199,7 +201,7 @@ const handleFormSubmission = async (event: any) => {
           ニックネーム:
           <input
             type="text"
-            value={nickname}
+            value={nick_name}
             onChange={(e) => setNickname(e.target.value)}
           />
         </label>
@@ -210,9 +212,9 @@ const handleFormSubmission = async (event: any) => {
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
-            <option value="">選択しない</option>
-            <option value="男">男</option>
-            <option value="女">女</option>
+            <option value="選択しない">選択しない</option>
+            <option value="男性">男性</option>
+            <option value="女性">女性</option>
           </select>
         </label>
         <br />
@@ -222,7 +224,7 @@ const handleFormSubmission = async (event: any) => {
             value={age_range}
             onChange={(e) => setAge(e.target.value)}
           >
-            <option value="">選択しない</option>
+            <option value="選択しない">選択しない</option>
             <option value="10">10代</option>
             <option value="20">20代</option>
             <option value="30">30代</option>
@@ -238,10 +240,11 @@ const handleFormSubmission = async (event: any) => {
             onChange={(e) => setAddress(e.target.value)}
           >
             <option value="">選択しない</option>
-            <option value="東京">東京</option>
-            <option value="名古屋">名古屋</option>
-            <option value="大阪">大阪</option>
-            <option value="福岡">福岡</option>
+            {prefectures().map((prefecture) => (
+              <option key={prefecture.code} value={prefecture.name}>
+                {prefecture.name}
+              </option>
+            ))}
           </select>
         </label>
         <br />
@@ -251,11 +254,12 @@ const handleFormSubmission = async (event: any) => {
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
           >
-            <option value="">選択しない</option>
+            <option value="選択しない">選択しない</option>
             <option value="営業">営業</option>
             <option value="事務">事務</option>
             <option value="販売">販売</option>
             <option value="製造">製造</option>
+            <option value="学生">学生</option>
           </select>
         </label>
         <br />
@@ -265,6 +269,7 @@ const handleFormSubmission = async (event: any) => {
             value={years_of_experience}
             onChange={(e) => setYearsExperience(e.target.value)}
           >
+            <option value="なし">なし</option>
             <option value="1年未満">1年未満</option>
             <option value="1~2年">1~2年</option>
             <option value="2~3年">2~3年</option>

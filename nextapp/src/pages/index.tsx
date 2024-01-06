@@ -1,8 +1,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/header"
+import { useRouter } from "next/router";
+import { useRegistrationInfo } from '../../context/auth';
+import { doc, getDocs, collection, query, where } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
 
 export default function Main() {
+  const router = useRouter();
+  const registrationInfo = useRegistrationInfo();
+
+  const handleLogin = async () => {
+    try {
+      const customerRef = doc(collection(db, 'customers'), registrationInfo.id);
+      
+      // paymentsコレクションのドキュメントIDを取得
+      const paymentsColRef = collection(customerRef, 'payments');
+      const paymentsQuery = await getDocs(paymentsColRef);
+  
+      const paymentDocId = paymentsQuery.empty ? null : paymentsQuery.docs[0].id;
+  
+      // Homeかunauthorisedに遷移
+      router.push(paymentDocId ? "/Home" : "/unauthorised");
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      // エラーハンドリングが必要な場合は適切な処理を追加
+      router.push("/unauthorised");
+    }
+  };
+
+
   return (
     <>
     <Header />
@@ -29,7 +56,8 @@ export default function Main() {
       
       <div className="text-center space-x-10 m-15">
         <Link href="/Home">
-          <button className="bg-red-300 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg">
+          <button className="bg-red-300 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg"
+          onClick={handleLogin}>
             ログイン
           </button>
         </Link >
