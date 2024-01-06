@@ -89,7 +89,7 @@
 
 
 
-// /api/route.tsx
+// /api/route.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -97,7 +97,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
      if (req.method === 'POST') {
       // POST メソッドの処理
-      const postData = req.body; // リクエストのボディからデータを取得
+      const postData = req.body;
+      console.log("postData:",postData);
+      // リクエストのボディからデータを取得
       const postRes = await fetch("http://serverapi:8000/chat", {
         method: "POST",
         headers: {

@@ -10,8 +10,12 @@ class UserService:
         self.db = db
 
     # ユーザー情報を取得するメソッド
-    def get_user_info(self, user_id: UUID) -> Optional[User]:
-        return self.db.query(User).filter(User.user_id == user_id).first()
+    def get_user_info(self, firebase_uid: str) -> Optional[User]:
+        return (
+            self.db.query(User)
+            .filter(User.firebase_uid == firebase_uid)
+            .first()
+        )
 
     # ユーザー情報の新規登録メソッド
     def create_user(self, user: UserCreate) -> User:
@@ -26,7 +30,7 @@ class UserService:
             self,
             request_text: str,
             response_text: str,
-            user_id: UUID) -> Llm_text:
+            user_id: str) -> Llm_text:
         new_llm_text = Llm_text(
             request_text=request_text,
             response_text=response_text,
