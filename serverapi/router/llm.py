@@ -37,9 +37,12 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
         職歴は{user.job_title} {user.years_of_experience}
 
         {{subject}}の内容に対して前提条件を基に答えてください。
+        もし{{subject}}の内容がキャリア、転職、仕事に関係あるか判断して、もし関係ない場合は「おや？私の専門分野とは違いますが一生懸命考えて回答します」と前置きをつけてください。
+        回答の口調は{user.talk_mode}。
+        回答の冒頭で{user.nick_name}に寄り添う一言を加えてください。
+        回答の最後にエールを送る一言を加えてください。
         回答は簡潔にわかりやすく、500文字以内でまとめてください。
         回答が300字を超える場合は箇条書きにするなど読みやすくしてください。
-        また返答の口調は{user.talk_mode}、{user.nick_name}に呼び掛けてください。
         """
 
         prompt = PromptTemplate(
