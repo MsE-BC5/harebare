@@ -4,22 +4,29 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from uuid import UUID
 from ...database.database import get_db
+from ...models.model import User
 from ...schemas.schema import (
     UserResponse,
-    LlmTextResponse
+    LlmTextResponse,
+    UserCreate
 )
 from ...services.service import UserService
 
 router = APIRouter()
 
 
-# ユーザー情報の新規登録？？？
-# @router.post("/users/", response_model=UserResponse)
-# def create_user(user: UserCreate, db: Session = Depends(get_db)):
-#     db_user = UserService(db).create_user(user)
-#     if db_user is None:
-# #         raise HTTPException(status_code=400, detail="User already exists")
-#     return db_user
+# ユーザー情報の新規登録
+@router.post("/users/", response_model=UserResponse)
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    # ユーザーデータをDBに保存
+    db_user = User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+
+    # # オートインクリメントで生成された user_id のみを含むレスポンスを返す
+    # return UserResponse(id=str(db_user.user_id))
+    return JSONResponse({"message": "successful"})
 
 
 # マイページ用ユーザー情報の取得
