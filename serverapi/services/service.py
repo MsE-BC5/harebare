@@ -1,6 +1,7 @@
 from typing import Optional, List
 from uuid import UUID
 from ..models.model import User, Llm_text
+from ..schemas.schema import UserCreate
 from sqlalchemy.orm import Session
 
 
@@ -12,7 +13,13 @@ class UserService:
     def get_user_info(self, user_id: UUID) -> Optional[User]:
         return self.db.query(User).filter(User.user_id == user_id).first()
 
-    # 新規登録するメソッド
+    # ユーザー情報の新規登録メソッド
+    def create_user(self, user: UserCreate) -> User:
+        db_user = User(**user.dict())
+        self.db.add(db_user)
+        self.db.commit()
+        self.db.refresh(db_user)
+        return db_user
 
     # 問い合わせと回答をDBに保存するメソッド
     def create_llm_text(
