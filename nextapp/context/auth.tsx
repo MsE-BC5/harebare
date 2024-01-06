@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               id: firebaseUser.uid,
               name: firebaseUser.displayName!,
               email: firebaseUser.email,
-              // nick_name: null,
             };
             await setDoc(ref, appUser);
             setUser((prevUser) => (prevUser ? prevUser : appUser));

@@ -9,7 +9,8 @@ import {
 } from 'firebase/firestore';
 import { prefectures } from 'jp-prefectures';
 import checkout from "../pages/checkout";
-import Header from "./components/header"
+import Header from "./components/header";
+
 
 const Register = () => {
   const registrationInfo = useRegistrationInfo();
@@ -83,7 +84,6 @@ const handleFormSubmission = async (event: any) => {
         },
         body: JSON.stringify({
           firebase_uid: registrationInfo?.id,
-          // id: registrationInfo?.id,
           name,
           nick_name,
           email,
@@ -108,9 +108,7 @@ const handleFormSubmission = async (event: any) => {
 
       // ユーザー登録が完了したらcheckout関数を呼び出す
       const doCheckout = async () => {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         await checkout(userPayload, router);
-        console.log("??????????????????")
       };
 
       // 非同期関数を呼び出す
@@ -164,9 +162,9 @@ const handleFormSubmission = async (event: any) => {
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
-            <option value="">選択しない</option>
-            <option value="男">男</option>
-            <option value="女">女</option>
+            <option value="選択しない">選択しない</option>
+            <option value="男性">男性</option>
+            <option value="女性">女性</option>
           </select>
         </label>
         <br />
@@ -176,12 +174,12 @@ const handleFormSubmission = async (event: any) => {
             value={age_range}
             onChange={(e) => setAge(e.target.value)}
           >
-            <option value="">選択しない</option>
-            <option value="10代">10代</option>
-            <option value="20代">20代</option>
-            <option value="30代">30代</option>
-            <option value="40代">40代</option>
-            <option value="50代以上">50代以上</option>
+            <option value="選択しない">選択しない</option>
+            <option value="10">10代</option>
+            <option value="20">20代</option>
+            <option value="30">30代</option>
+            <option value="40">40代</option>
+            <option value="50以上">50代以上</option>
           </select>
         </label>
         <br />
@@ -205,11 +203,12 @@ const handleFormSubmission = async (event: any) => {
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
           >
-            <option value="">選択しない</option>
+            <option value="選択しない">選択しない</option>
             <option value="営業">営業</option>
             <option value="事務">事務</option>
             <option value="販売">販売</option>
             <option value="製造">製造</option>
+            <option value="学生">学生</option>
           </select>
         </label>
         <br />
@@ -219,6 +218,7 @@ const handleFormSubmission = async (event: any) => {
             value={years_of_experience}
             onChange={(e) => setYearsExperience(e.target.value)}
           >
+            <option value="なし">なし</option>
             <option value="1年未満">1年未満</option>
             <option value="1~2年">1~2年</option>
             <option value="2~3年">2~3年</option>
