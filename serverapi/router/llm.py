@@ -20,13 +20,13 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
     try:
         # フロントエンドからの質問を受け取る
         user_question = chat.get("query_text")
-
-        # user_idをフロントから受け取る
+        print("query_text", user_question)
+        # firebase_idをフロントから受け取る
         firebase_uid = chat.get("firebase_uid")
-
+        print("firebase_uid", firebase_uid)
         # ユーザー情報を取得
         user = UserService(db).get_user_info(firebase_uid)
-
+        print("user", user)
         # クライアントから送信したテキストと、DBから取得したユーザーデータを反映したプロンプト
         template = f"""
         あなたは環境やライフステージの変化に伴うキャリアに悩む人々の相談相手の役割を担っています。
@@ -60,7 +60,7 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
         print(response)
 
         # 問い合わせと回答をDBに保存
-        UserService(db).create_llm_text(user_question, response, firebase_uid)
+        UserService(db).create_llm_text(user_question, response, user.user_id)
 
         return {"response": response}
 

@@ -10,7 +10,6 @@ import {
 import { prefectures } from 'jp-prefectures';
 import checkout from "../pages/checkout";
 import Header from "./components/header";
-import { prefectures } from 'jp-prefectures';
 
 
 const Register = () => {
@@ -20,7 +19,7 @@ const Register = () => {
   // State for form fields
   const [name, setName] = useState(registrationInfo?.name || "");
   const [email, setEmail] = useState(registrationInfo?.email || "");
-  const [nickname, setNickname] = useState("");
+  const [nick_name, setNickname] = useState("");
   const [gender, setGender] = useState("");
   const [age_range, setAge] = useState("");
   const [address, setAddress] = useState("");
@@ -86,7 +85,7 @@ const handleFormSubmission = async (event: any) => {
         body: JSON.stringify({
           firebase_uid: registrationInfo?.id,
           name,
-          nickname,
+          nick_name,
           email,
           gender,
           age_range,
@@ -109,9 +108,7 @@ const handleFormSubmission = async (event: any) => {
 
       // ユーザー登録が完了したらcheckout関数を呼び出す
       const doCheckout = async () => {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         await checkout(userPayload, router);
-        console.log("??????????????????")
       };
 
       // 非同期関数を呼び出す

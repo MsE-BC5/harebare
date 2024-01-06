@@ -98,7 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      if (req.method === 'POST') {
       // POST メソッドの処理
       const postData = req.body;
-      console.log(postData);
+      console.log("postData:",postData);
       // リクエストのボディからデータを取得
       const postRes = await fetch("http://serverapi:8000/chat", {
         method: "POST",
