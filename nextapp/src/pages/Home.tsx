@@ -26,8 +26,8 @@ function Home() {
       const postData = {
         query_text: queryText,
         firebase_uid: userId // ログインユーザーのIDを含める
-       };
-       console.log(postData);
+        };
+        console.log(postData);
       // POSTリクエスト
       const postResponse = await fetch("/api/route", {
         method: "POST",
@@ -58,8 +58,8 @@ function Home() {
   return (
     <>      
       <Header />
-      <div className="relative  bg-cover bg-red-50">
-        <div className="relative h-[1500px]">
+      <div className="relative  bg-cover bg-red-50 text-center">
+        <div className="relative h-[1200px]">
           <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
         </div>
@@ -81,9 +81,9 @@ function Home() {
         <button onClick={fetchData}
           className="bg-brown-400 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
           {data && (
-        <div>
-          <p> {data.postData}</p>
-        </div>
+          <p className="whitespace-pre-wrap m-7 mx-[9rem] text-center" > 
+          {data.postData}
+          </p>
       )}
       <div>
         <Link href="/">

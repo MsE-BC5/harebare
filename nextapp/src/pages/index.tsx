@@ -5,10 +5,6 @@ import { useRouter } from "next/router";
 import { useRegistrationInfo } from '../../context/auth';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { useRouter } from "next/router";
-import { useRegistrationInfo } from '../../context/auth';
-import { doc, getDocs, collection, query, where } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
 
 export default function Main() {
   const router = useRouter();
