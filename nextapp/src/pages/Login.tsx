@@ -1,8 +1,6 @@
 import React from "react";
-// import { useAuth } from "../../context/auth";
-import { login, logout } from "../../lib/auth";
 import { FC, useState, useEffect } from "react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
 import Header from "./components/header"
@@ -12,20 +10,17 @@ interface CheckoutComponentProps {
 }
 
 const CheckoutComponent: FC<CheckoutComponentProps> = () => {
-  const auth = getAuth(); // getAuth メソッドで Auth オブジェクトを取得
-  console.log(auth);
-  //const authUser = useAuth(); // あなたのFirestoreコンテキストから firestore を取得
+  const auth = getAuth();
   const [user, setUser] = useState<User | null>(null);
   const firestore = getFirestore();
   const router = useRouter(); 
-  
+
   useEffect(() => {
-    // ユーザーのログイン状態が変わったときに実行されるコード
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
 
-    return () => unsubscribe(); // コンポーネントがアンマウントされたときに unsubscribe する
+    return () => unsubscribe();
   }, [auth]);
 
   const isAuthenticated = !!user;

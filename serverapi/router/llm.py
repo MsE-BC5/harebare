@@ -20,13 +20,13 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
     try:
         # フロントエンドからの質問を受け取る
         user_question = chat.get("query_text")
-        # user_idをフロントから受け取る（一旦べた書き）
-        # user_id = chat.get("user_id")
-        user_id = "12345678-9012-3456-7890-526715275000"
-        
+        print("query_text", user_question)
+        # firebase_idをフロントから受け取る
+        firebase_uid = chat.get("firebase_uid")
+        print("firebase_uid", firebase_uid)
         # ユーザー情報を取得
-        user = UserService(db).get_user_info(user_id)
-
+        user = UserService(db).get_user_info(firebase_uid)
+        print("user", user)
         # クライアントから送信したテキストと、DBから取得したユーザーデータを反映したプロンプト
         template = f"""
         あなたは環境やライフステージの変化に伴うキャリアに悩む人々の相談相手の役割を担っています。
@@ -37,8 +37,12 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
         職歴は{user.job_title} {user.years_of_experience}
 
         {{subject}}の内容に対して前提条件を基に答えてください。
+        もし{{subject}}の内容がキャリア、転職、仕事に関係あるか判断して、もし関係ない場合は「おや？私の専門分野とは違いますが一生懸命考えて回答します」と前置きをつけてください。
+        回答の口調は{user.talk_mode}。
+        回答の冒頭で{user.nick_name}に寄り添う一言を加えてください。
+        回答の最後にエールを送る一言を加えてください。
+        回答は簡潔にわかりやすく、500文字以内でまとめてください。
         回答が300字を超える場合は箇条書きにするなど読みやすくしてください。
-        また返答の口調は{user.talk_mode}、{user.nick_name}に呼び掛けてください。
         """
 
         prompt = PromptTemplate(
@@ -56,10 +60,10 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
 
         response = llm(prompt_text)
 
-        print(llm(prompt_text))
+        print(response)
 
         # 問い合わせと回答をDBに保存
-        UserService(db).create_llm_text(user_question, response, user_id)
+        UserService(db).create_llm_text(user_question, response, user.user_id)
 
         return {"response": response}
 

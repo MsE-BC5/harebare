@@ -1,7 +1,6 @@
 // pages/checkout.tsx
 
 import { doc, collection, addDoc, onSnapshot, getDocs } from 'firebase/firestore';
-import { getAuth, User } from 'firebase/auth';
 import { NextRouter } from 'next/router';
 import { db } from '../../lib/firebase';
 
@@ -15,7 +14,6 @@ type MyUser = {
 
 const checkout = async (user: MyUser | null, router: NextRouter) => {
   try {
-    console.log("!!!!!!!!!!!!!!!!!!checkout")
     if (!user) {
       // ログインしていない場合の処理（例: ログインページにリダイレクト）
       router.push('/login');
@@ -32,8 +30,8 @@ const checkout = async (user: MyUser | null, router: NextRouter) => {
     });
 
     // paymentsコレクションのドキュメントIDを取得
-    const paymentsColRef = collection(customerRef, 'payments');
-    const paymentsQuery = await getDocs(paymentsColRef);
+    // const paymentsColRef = collection(customerRef, 'payments');
+    // const paymentsQuery = await getDocs(paymentsColRef);
 
     // if (!paymentsQuery.empty) {
     //   // paymentsコレクション内にドキュメントが存在する場合、最初のドキュメントのIDを取得
@@ -41,14 +39,14 @@ const checkout = async (user: MyUser | null, router: NextRouter) => {
     //   console.log(paymentDocId);
     //   exportedPaymentDocId = paymentDocId;
 
-      // FastAPIのエンドポイントを通してデータをPOST
-      await fetch(`/api/payment/${user?.uid}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify({ payment_id: paymentDocId }),
-      });
+      // // FastAPIのエンドポイントを通してデータをPOST
+      // await fetch(`/api/payment/${user?.uid}`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   // body: JSON.stringify({ payment_id: paymentDocId }),
+      // });
 
       const unsubscribe = onSnapshot(docRef, (snapshot) => {
         const data = snapshot.data();

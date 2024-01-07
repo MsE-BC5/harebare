@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore';
+import { prefectures } from 'jp-prefectures';
 import checkout from "../pages/checkout";
 import Header from "./components/header"
 import Link from "next/link";
@@ -20,7 +21,7 @@ const Register = () => {
   // State for form fields
   const [name, setName] = useState(registrationInfo?.name || "");
   const [email, setEmail] = useState(registrationInfo?.email || "");
-  const [nick_name, setNickname] = useState("");
+  const [nick__name, setNickname] = useState("");
   const [gender, setGender] = useState("");
   const [age_range, setAge] = useState("");
   const [address, setAddress] = useState("");
