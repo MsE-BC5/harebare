@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Header from "./components/header";
 import { useRegistrationInfo } from "../../context/auth"; // useRegistrationInfoをインポート
+import Link from "next/link";
 
 function Home() {
     const [data, setData] = useState({
@@ -25,8 +26,8 @@ function Home() {
       const postData = {
         query_text: queryText,
         firebase_uid: userId // ログインユーザーのIDを含める
-       };
-       console.log(postData);
+        };
+        console.log(postData);
       // POSTリクエスト
       const postResponse = await fetch("/api/route", {
         method: "POST",
@@ -55,37 +56,46 @@ function Home() {
   };
 
   return (
-    <>
-    <Header />
-      <div style={{ position: 'relative', height: '1000px',  marginTop: '-150px' }}>
-        {/* <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" /> */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="flex items-center">
-            <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
-            <Image src="/carrier.PNG" alt="Image" width={350} height={10} />
-          </div>
-      
-    <div className="text-center" style={{ marginTop: '-100px' }}>
-    <textarea
-  value={queryText}
-  onChange={(e) => setQueryText(e.target.value)}
-  placeholder="テキストを入力してね"
-  className="rounded border bg-gray-100 p-20"
-/>
-    <div>
-      <button onClick={fetchData}
-      className="bg-gray-500 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
-      {data && (
-        <div>
-          <p> {data.postData}</p>
+    <>      
+      <Header />
+      <div className="relative  bg-cover bg-red-50 text-center">
+        <div className="relative h-[1200px]">
+          <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
+        <div className="absolute inset-0 bg-white bg-opacity-50"></div>
         </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+      <div className="flex items-center mt-5">
+        <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
+        <Image src="/carrier.PNG" alt="Image" width={400} height={10} />
+      </div>
+
+      <div className="text-center" style={{ marginTop: '100px' }}>
+        <textarea
+          type="text"
+          value={queryText}
+          onChange={(e) => setQueryText(e.target.value)}
+          placeholder="悩みを入力してね"
+          className="rounded border bg-gray-100 p-20" style={{ marginTop: '-200px' }}
+        />
+      <div>
+        <button onClick={fetchData}
+          className="bg-brown-400 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
+          {data && (
+          <p className="whitespace-pre-wrap m-7 mx-[9rem] text-center" > 
+          {data.postData}
+          </p>
       )}
+      <div>
+        <Link href="/">
+          <button className="bg-brown-400 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg m-8">
+            戻る
+          </button>
+        </Link>
+      </div>
+      </div>
     </div>
     </div>
     </div>
-    </div>
-    {/* </div> */}
-    {/* </div> */}
     </>
   );
 }

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from serverapi.api import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
 from router import llm
-# from pydantic import BaseModel
+from pydantic import BaseModel
 
 
 app = FastAPI()
@@ -25,6 +25,17 @@ app.add_middleware(
 #                  "name": "John Doe",
 #                  "email": "john@example.com"}
 #     return user_info
+
+
+class User(BaseModel):
+    uid: str
+
+
+@app.post("/endpoint")
+async def read_item(user: User):
+    uid = user.uid
+    # ここでuidを使用した処理を行う
+    return {"uid": uid}
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ export default function Header() {
   };
 
   return (
-    <header className="py-6 px-4 flex justify-between items-center">
+    <header className="py-6 px-4 flex justify-between items-center bg-brown-200 w-full z-50">
 
       <nav
         className={
@@ -41,60 +41,32 @@ export default function Header() {
           </li>
           <li>
             <Link onClick={handleMenuClose} href="/Login">
-              Login
+              LOGIN
             </Link>
           </li>
         </ul>
       </nav>
       <button className="z-50 space-y-2 md:hidden" onClick={handleMenuOpen}>
-        <span
-          className={
-            isOpen
-              ? "block w-8 h-0.5 bg-gray-600 translate-y-2.5 rotate-45 duration-300"
-              : "block w-8 h-0.5 bg-gray-600 duration-300"
-          }
-        />
-        <span
-          className={
-            isOpen ? "block opacity-0 duration-300" : "block w-8 h-0.5 bg-gray-600 duration-300"
-          }
-        />
-        <span
-          className={
-            isOpen
-              ? "block w-8 h-0.5 bg-gray-600 -rotate-45 duration-300"
-              : "block w-8 h-0.5 bg-gray-600 duration-300"
-          }
-        />
-      </button>
-    </header>
+ <span
+  className={
+    isOpen
+      ? "block w-8 h-0.5 bg-gray-600 translate-y-2.5 rotate-45 duration-300"
+      : "block w-8 h-0.5 bg-gray-600 duration-300"
+  }
+ />
+ <span
+  className={
+    isOpen ? "block opacity-0 duration-300" : "block w-8 h-0.5 bg-gray-600 duration-300"
+  }
+ />
+ <span
+  className={
+    isOpen
+      ? "block w-8 h-0.5 bg-gray-600 -rotate-45 duration-300"
+      : "block w-8 h-0.5 bg-gray-600 duration-300"
+  }
+ />
+</button>    
+</header>
   );
 }
-
-// // import { useState } from "react";
-// import React, { useState } from "react";
-// import Link from "next/link";
-
-// export default function Header() {
-//   const [menuOpen, setMenuOpen] = useState(false);
-
-//   const handleToggleMenu = () => {
-//     setMenuOpen(!menuOpen);
-//   };
-
-//   return (
-//     <div className="bg-white">
-//       <button onClick={handleToggleMenu}>☆</button>
-//       {menuOpen && (
-//         <div>
-//           <Link href="/Home">ホーム</Link>
-//           <Link href="/mypage">マイページ</Link>
-//           <p>相談</p>
-//           <p>ログイン</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-
