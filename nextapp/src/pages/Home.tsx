@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Header from "./components/header"
+import Link from "next/link";
 
 function Home() {
   const [data, setData] = useState(null);
@@ -58,109 +59,49 @@ function Home() {
   };
 
   return (
-    <>
-    <Header />
-      <div style={{ position: 'relative', height: '1000px',  marginTop: '-150px' }}>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="flex items-center">
-            <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
-            <Image src="/carrier.PNG" alt="Image" width={350} height={10} />
-          </div>
-      
-    <div className="text-center" style={{ marginTop: '-100px' }}>
-      <textarea
-        type="text"
-        value={queryText}
-        onChange={(e) => setQueryText(e.target.value)}
-        placeholder="テキストを入力してね"
-        className="rounded border bg-gray-100 p-20"
-      />
-    <div>
-      <button onClick={fetchData}
-      className="bg-gray-500 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
-      {data && (
+    <>      
+      <Header />
+      <div className="relative  bg-cover bg-red-50">
+        <div className="relative h-[1500px]">
+          <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
+        <div className="absolute inset-0 bg-white bg-opacity-50"></div>
+        </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+      <div className="flex items-center mt-5">
+        <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
+        <Image src="/carrier.PNG" alt="Image" width={400} height={10} />
+      </div>
+
+      <div className="text-center" style={{ marginTop: '100px' }}>
+        <textarea
+          type="text"
+          value={queryText}
+          onChange={(e) => setQueryText(e.target.value)}
+          placeholder="悩みを入力してね"
+          className="rounded border bg-gray-100 p-20" style={{ marginTop: '-200px' }}
+        />
+      <div>
+        <button onClick={fetchData}
+          className="bg-brown-400 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
+          {data && (
         <div>
-          <p>POSTのデータ: {data.postData}</p>
+          <p>{data.postData}</p>
           {/* <p>GETのデータ: {data.getData}</p> */}
         </div>
       )}
+      <div>
+        <Link href="/">
+          <button className="bg-brown-400 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg m-8">
+            戻る
+          </button>
+        </Link>
+      </div>
+      </div>
     </div>
     </div>
     </div>
-    </div>
-    {/* </div> */}
-    {/* </div> */}
     </>
   );
 }
 
 export default Home;
-
-
-// import React, { useState } from "react";
-// import Image from "next/image";
-
-// function Home() {
-//   const [data, setData] = useState(null);
-//   const [inputText, setInputText] = useState("");
-
-//   const fetchData = async () => {
-//     try {
-//       // POSTデータを作成
-//       const postData = { text: inputText };
-
-//       // POSTリクエスト
-//       const postResponse = await fetch("/api/route", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(postData),
-//       });
-
-//       if (!postResponse.ok) {
-//         throw new Error(`HTTP error! Status: ${postResponse.status}`);
-//       }
-
-//       // POSTのレスポンスを取得
-//       const postDataResult = await postResponse.json();
-
-//       // GETリクエスト
-//       const getResponse = await fetch("/api/route");
-//       const getData = await getResponse.json();
-
-//       setData({
-//         postData: postDataResult,
-//         getData: getData,
-//       });
-//     } catch (error) {
-//       console.error("データの取得中にエラーが発生しました:", error);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <Image className="m-10 p-20" src="/cloud.PNG" alt="Image" width={400} height={10} />
-//       <div className=" text-center">
-//       <input
-//         type="text"
-//         value={inputText}
-//         onChange={(e) => setInputText(e.target.value)}
-//         placeholder="テキストを入力してね"
-//         className="rounded border bg-gray-100 p-20 "
-//       />
-//       <div>
-//       <button onClick={fetchData}
-//       className="bg-gray-500 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button></div>
-//       {data && (
-//         <div>
-//           <p>POSTのデータ: {JSON.stringify(data.postData)}</p>
-//           <p>GETのデータ: {JSON.stringify(data.getData)}</p>
-//         </div>
-//       )}
-//       </div>
-//     </>
-//   );
-// }
-
-// export default Home;

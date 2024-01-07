@@ -49,6 +49,17 @@ def get_user(user_id: int):
     return user_info
 
 
+class User(BaseModel):
+    uid: str
+
+
+@app.post("/endpoint")
+async def read_item(user: User):
+    uid = user.uid
+    # ここでuidを使用した処理を行う
+    return {"uid": uid}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("serverapi.main:app", host="0.0.0.0", port=8000, reload=True)

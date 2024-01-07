@@ -55,7 +55,10 @@ class Llm_text(Base):
         onupdate=func.now()
     )
 
-    user = relationship("User")
+    # user = relationship("User")
+    user = relationship("User",
+                        back_populates="llm_texts",
+                        overlaps="llm_texts")  # 競合するため修正
 
 
 class Payment(Base):

@@ -20,11 +20,10 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
     try:
         # フロントエンドからの質問を受け取る
         user_question = chat.get("query_text")
-
         # user_idをフロントから受け取る（一旦べた書き）
         # user_id = chat.get("user_id")
         user_id = "12345678-9012-3456-7890-526715275000"
-
+        
         # ユーザー情報を取得
         user = UserService(db).get_user_info(user_id)
 
