@@ -34,16 +34,25 @@ class UserCreate(BaseModel):
 
 
 class UserResponse(BaseModel):
-    id: str  # UUIDを文字列として受け取る
+    message: str
+
+
+class MypageUserResponse(BaseModel):
+    name: str
+    nick_name: str
+    email: str
+    gender: str
+    age_range: str
+    address: str
+    talk_mode: str
+    job_title: str
+    years_of_experience: str
 
 
 class LlmTextResponse(BaseModel):
     request_text: str
     response_text: str
     created_at: str  # datetimeではなくstrとして定義
-
-    id: str
-    user_id: str
 
     class Config:
         orm_mode = True
