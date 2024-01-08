@@ -224,11 +224,11 @@ const handleFormSubmission = async (event: any) => {
               style={{ backgroundColor: '#f0f0f0' }}
             >
               <option value=""></option>
-              <option value="10">10代</option>
-              <option value="20">20代</option>
-              <option value="30">30代</option>
-              <option value="40">40代</option>
-              <option value="50以上">50代以上</option>
+              <option value="10代">10代</option>
+              <option value="20代">20代</option>
+              <option value="30代">30代</option>
+              <option value="40代">40代</option>
+              <option value="50代以上">50代以上</option>
             </select>
             </label>
           </div>
@@ -264,17 +264,17 @@ const handleFormSubmission = async (event: any) => {
               <option value="事務">事務</option>
               <option value="販売">販売</option>
               <option value="製造">製造</option>
-              <option value="製造">不動産</option>
-              <option value="製造">医療</option>
-              <option value="製造">福祉</option>
-              <option value="製造">教師</option>
-              <option value="製造">芸能</option>
-              <option value="製造">芸術</option>
-              <option value="製造">スポーツ</option>
-              <option value="製造">IT</option>
-              <option value="製造">公務員</option>
-              <option value="製造">研究員</option>
-              <option value="製造">人事</option>
+              <option value="不動産">不動産</option>
+              <option value="医療">医療</option>
+              <option value="福祉">福祉</option>
+              <option value="教師">教師</option>
+              <option value="芸能">芸能</option>
+              <option value="芸術">芸術</option>
+              <option value="スポーツ">スポーツ</option>
+              <option value="IT">IT</option>
+              <option value="公務員">公務員</option>
+              <option value="研究員">研究員</option>
+              <option value="人事">人事</option>
               <option value="その他">その他</option>
             </select>
             </label>
