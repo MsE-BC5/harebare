@@ -308,8 +308,8 @@ const handleFormSubmission = async (event: any) => {
               style={{ backgroundColor: '#f0f0f0' }}
             >
               <option value=""></option>
-              <option value="やさしく">やさしく</option>
-              <option value="厳しめ">厳しめ</option>
+              <option value="親身に優しい">やさしく</option>
+              <option value="論理的に厳しい">厳しめ</option>
             </select>
             </label>
           </div>

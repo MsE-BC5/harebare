@@ -88,7 +88,7 @@ async def get_llm_texts(
             )
             llm_text_responses.append(llm_text_response)
 
-            return llm_text_responses
+        return llm_text_responses
 
     except Exception as e:
         print(f"An error occurred: {e}")
