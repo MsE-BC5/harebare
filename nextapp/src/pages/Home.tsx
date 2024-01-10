@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Image from "next/image";
 import Header from "./components/header";
@@ -59,7 +58,7 @@ function Home() {
     <>      
       <Header />
       <div className="relative  bg-cover bg-red-50 text-center">
-        <div className="relative h-[1200px]">
+        <div className="relative h-[1300px]">
           <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
         </div>
@@ -75,15 +74,19 @@ function Home() {
           value={queryText}
           onChange={(e) => setQueryText(e.target.value)}
           placeholder="悩みを入力してね"
-          className="rounded border bg-gray-100 p-20" style={{ marginTop: '-200px' }}
+          className="rounded border bg-gray-100 p-20 w-144 text-center" style={{ marginTop: '-200px' }}
         />
-      <div>
-        <button onClick={fetchData}
-          className="bg-brown-400 text-white px-5 py-1 rounded-full transition hover:opacity-60 m-5">送信</button>
-          {data && (
-          <p className="whitespace-pre-wrap m-7 mx-[9rem] text-center" > 
-          {data.postData}
-          </p>
+      <div className="pt-5 text-center">
+      <button
+        onClick={fetchData}
+        className="bg-brown-400 text-white px-7 py-3 rounded-full transition hover:opacity-60 shadow-lg text-2xl"
+      >
+        送信
+      </button>
+      {data && (
+        <div className="m-7 mx-auto max-w-[60%] text-left">
+          <p className="whitespace-pre-wrap">{data.postData}</p>
+        </div>
       )}
       <div>
         <Link href="/">
