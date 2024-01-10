@@ -58,8 +58,8 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
         """
 
         prompt = PromptTemplate(
-           template=template,
-           input_variables=["subject"]
+            template=template,
+            input_variables=["subject"]
         )
 
         # ChatGPTに送るためのプロンプトを作成

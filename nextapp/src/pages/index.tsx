@@ -32,67 +32,90 @@ export default function Main() {
 
   return (
     <>
-    <Header />
-      <div className="relative text-4xl bg-cover bg-red-50">
-        <div className="relative h-[1500px]">
-          <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
-        <div className="absolute inset-0 bg-white bg-opacity-50"></div>
-        </div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+<Header />
+<div className="text-2xl text-center">
+  <div className="relative bg-cover h-[300px]">
+    {/* 上部に配置する背景画像 */}
+    <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
+    <div className="absolute inset-0 bg-white bg-opacity-50"></div>
+
+    {/* 上に重ねるコンテンツ */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
       <div className="flex items-center mt-5">
-        <Image src="/cloud.PNG" alt="Image" width={300} height={10} />
-        <Image src="/harebare.PNG" alt="Image" width={550} height={10} />
+        {/* 画像のサイズを適切な値に設定してください */}
+        <Image src="/cloud.PNG" alt="Cloud Image" width={300} height={300} />
+        <Image src="/harebare.PNG" alt="Harebare Image" width={550} height={300} />
       </div>
-      <div className="m-15 p-40  text-lg font-mono  font-bold text-gray-600 antialiased text-left" 
-        style={{ marginTop: '-150px' }}>
+    </div>
+  </div>
+
+      <div className="flex justify-center">
+        <div className="text-3xl font-bold text-center pt-8">
+      キャリアのお悩みありませんか？
+        </div>
+      </div>
+<div className="flex justify-center">
+  <div className="m-15 p-40 text-lg font-mono font-bold text-gray-600 antialiased text-left" 
+      style={{ marginTop: '-130px', maxWidth: '760px' }}>
         はればれはキャリアに悩むあなたの一歩となります
-        <p>環境や、住む場所が変わり</p>
-        <p>どんな働き方があるだろう</p>
-        <p>もっといろんな働き方があるかな</p>
-        <p>このままキャリアを築くほうがよいかな</p>
-        <p>そんなモヤモヤした悩みに</p>
-        <p>いつでも、どこからでも耳を傾けサポートします</p>
-      </div>
-      <div className="flex justify-start w-full">
-      <div className="text-lg font-mono  font-bold text-gray-600 antialiased text-left px-20 mb-10">
-        はればれにできること
-        <p>・相談機能</p>
-        テキストボックスに打ち込むだけで登録した情報に基づき<br />
-        あなたに合わせたアドバイスをお届けします
-        <p>・個人設定機能</p>
-        職歴、性別、年齢などアドバイスに反映したい項目を設定できます
-        <p>・履歴機能</p>
-        相談内容の履歴を確認できます
-      </div>
-      </div>
-      
-      <div className="flex justify-end w-full">
-      <div className="text-lg font-mono font-bold text-gray-600 antialiased text-left px-20">
-      使い方
+          <p>環境や、住む場所が変わり</p>
+          <p>どんな働き方があるだろう</p>
+          <p>もっといろんな働き方があるかな</p>
+          <p>このままキャリアを築くほうがよいかな</p>
+          <p>そんなモヤモヤした悩みに</p>
+          <p>いつでも、どこからでも耳を傾けサポートします</p>
+  </div>
+</div>
+  <div className="text-3xl font-bold text-black antialiased px-10">
+    はればれにできること<br />
+  </div>
+<div className="flex justify-between w-full px-20 py-10">
+<div className="flex-1 rounded-lg px-10 py-10 text-center mx-5 text-gray-600 font-bold" style={{ background: 'radial-gradient(circle, #FFECDA 0%, #E57C64 100%)' }}>
+  <p className="underline font-bold p-4">相談機能</p>
+  <p className="text-lg">
+    テキストボックスに打ち込むだけで登録した情報に基づきあなたに合わせたアドバイスをお届けします</p>
+</div>
+<div className="flex-1 rounded-lg px-10 py-10 text-center mx-5 text-gray-600 font-bold" style={{ background: 'radial-gradient(circle, #FFECDA 0%, #E57C64 100%)' }}>
+  <p className="underline font-bold  p-4">個人設定機能</p>
+  <p className="text-lg">職歴、性別、年齢などアドバイスに反映したい項目を設定できます</p>
+</div>
+<div className="flex-1 rounded-lg px-10 py-10 text-center mx-5 text-gray-600 font-bold" style={{ background: 'radial-gradient(circle, #FFECDA 0%, #E57C64 100%)' }}>
+    <p className="underline font-bold p-4">履歴機能</p>
+    <p className="text-lg">相談内容の履歴を<br />確認できます</p>
+  </div>
+</div>
+
+<div className="text-3xl font-bold text-black antialiased px-10 pt-20">
+    使い方<br />
+  </div>
+<div className="flex justify-center">
+      <div className="text-lg font-mono font-bold text-gray-600 antialiased  px-20 text-left pt-5 pd-5">
         <p>1.新規登録、もしくはログインをしてください</p>
         <p>2.相談ページにて今の気持ちを書き込んでください</p>
         <p>3.あなた向けのアドバイスが届きます</p>
         <p>4.過去の相談内容を見たい場合は<br />
       マイページから履歴の確認をしてください</p>
-      <div className="bg-brown-300 text-white p-6 rounded-lg shadow-lg m-4">
-        <p className="mb-2">月額300円</p>
-        <p className="mb-2 text-xs">7日間お試し期間のあとに有料となります</p>
-      </div>
-      </div>
+
+<div className="pt-5">
+  <div className="bg-brown-300 text-white p-7 rounded-lg shadow-lg m-2 max-w-sm text-left ">
+    <p className="mb-5">月額300円</p>
+    <p className="mb-2 text-xs">7日間お試し期間のあとに有料となります</p>
+  </div>
+</div>
+</div>
       </div>
       
       <div className="text-center space-x-10 m-20">
-          <button className="bg-brown-400 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg text-lx"
+          <button className="bg-brown-400 text-white px-7 py-3 rounded-full transition hover:opacity-60 shadow-lg text-lx"
           onClick={handleLogin}>
-            ログイン
+            相談する
           </button>
         <Link href="/Login">
-        <button className="bg-brown-400 text-white px-3 py-1 rounded-full transition hover:opacity-60 shadow-lg text-lx">
+        <button className="bg-brown-400 text-white px-7 py-3 rounded-full transition hover:opacity-60 shadow-lg text-lx">
           新規登録
         </button>
         </Link>
         </div>
-      </div>
       </div>
   </>
   );
