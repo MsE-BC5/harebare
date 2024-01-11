@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/header"
+import Footer from "./components/footer"
 import { useRouter } from "next/router";
 import { useRegistrationInfo } from '../../context/auth';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
@@ -33,7 +34,7 @@ export default function Main() {
   return (
     <>
 <Header />
-<div className="text-2xl text-center">
+<div className="relative text-2xl text-center flex flex-col min-h-screen">
   <div className="relative bg-cover h-[300px]">
     {/* 上部に配置する背景画像 */}
     <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
@@ -105,7 +106,7 @@ export default function Main() {
 </div>
       </div>
       
-      <div className="text-center space-x-10 m-20">
+      <div className="text-center space-x-10 m-20 pb-10">
           <button className="bg-brown-400 text-white px-7 py-3 rounded-full transition hover:opacity-60 shadow-lg text-lx"
           onClick={handleLogin}>
             相談する
@@ -116,7 +117,16 @@ export default function Main() {
         </button>
         </Link>
         </div>
-      </div>
+      <footer className="bg-gray-100 text-center p-2 absolute bottom-0 w-full ">
+  <p className="text-sm text-gray-600">
+    © {new Date().getFullYear()} Harebare company. All rights reserved.
+  </p>
+  <a href="/privacy-policy" className="text-sm text-gray-600 hover:underline">
+    プライバシーポリシー
+  </a>
+</footer>
+{/* <Footer /> */}
+</div>
   </>
   );
 }
