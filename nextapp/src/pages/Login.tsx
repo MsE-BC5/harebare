@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
 import Header from "./components/header"
+import Footer from "./components/footer"
 import Image from "next/image";
 
 interface CheckoutComponentProps {
@@ -110,6 +111,7 @@ const loginWithGoogle = async () => {
         </div>
         </div>
         </div>
+        <Footer />
     </>
   );
 };
