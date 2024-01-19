@@ -136,7 +136,8 @@ const handleFormSubmission = async (event: any) => {
 
       // ユーザー登録が完了したらcheckout関数を呼び出す
       const doCheckout = async () => {
-        await checkout(userPayload, router);
+        //await 
+        checkout({ user: userPayload, router });
       };
 
       // 非同期関数を呼び出す
