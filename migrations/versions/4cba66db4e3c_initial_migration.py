@@ -32,8 +32,6 @@ def upgrade():
         sa.Column('job_title', sa.String(length=100), nullable=True),
         sa.Column('years_of_experience', sa.String(length=50), nullable=True),
         sa.Column('firebase_uid', sa.String(length=50), nullable=True),
-        sa.Column('OAuth_provider', sa.String(length=50), nullable=True),
-        sa.Column('OAuth_provider_id', sa.String(length=50), nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True),
                   nullable=False, default=sa.func.now()),
         sa.Column('updated_at', sa.DateTime(timezone=True),
@@ -50,25 +48,6 @@ def upgrade():
                   sa.ForeignKey('users.user_id')),
         sa.Column('request_text', sa.Text, nullable=True),
         sa.Column('response_text', sa.Text, nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True),
-                  nullable=False, default=sa.func.now()),
-        sa.Column('updated_at', sa.DateTime(timezone=True),
-                  nullable=True, onupdate=sa.func.now()),
-
-    )
-
-    # payments テーブルの作成
-    op.create_table(
-        'payments',
-        sa.Column('payment_id', sa.dialects.postgresql.UUID(as_uuid=True),
-                  primary_key=True, default=uuid.uuid4),
-        sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True),
-                  sa.ForeignKey('users.user_id')),
-        sa.Column('stripe_customer_id', sa.String(length=50), nullable=True),
-        sa.Column('price', sa.BigInteger, nullable=True),
-        sa.Column('currency', sa.String(length=3), nullable=True),
-        sa.Column('status', sa.String(length=20), nullable=True),
-        sa.Column('payment_date', sa.DateTime(timezone=True), nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True),
                   nullable=False, default=sa.func.now()),
         sa.Column('updated_at', sa.DateTime(timezone=True),

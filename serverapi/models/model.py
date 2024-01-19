@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, ForeignKey, String, BigInteger, Text, DateTime, func
+    Column, ForeignKey, String, Text, DateTime, func
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -21,8 +21,6 @@ class User(Base):
     job_title = Column(String(100))
     years_of_experience = Column(String(50))
     firebase_uid = Column(String(50))
-    OAuth_provider = Column(String(50))
-    OAuth_provider_id = Column(String(50))
     created_at = Column(
         DateTime(timezone=True),
         default=func.now())
@@ -33,7 +31,6 @@ class User(Base):
     )
 
     llm_texts = relationship("Llm_text")
-    payments = relationship("Payment")
 
 
 class Llm_text(Base):
@@ -59,29 +56,6 @@ class Llm_text(Base):
     user = relationship("User",
                         back_populates="llm_texts",
                         overlaps="llm_texts")  # 競合するため修正
-
-
-class Payment(Base):
-    __tablename__ = 'payments'
-
-    payment_id = Column(
-        UUID(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.user_id'))
-    stripe_customer_id = Column(String(50))
-    price = Column(BigInteger)
-    currency = Column(String(3))
-    status = Column(String(20))
-    payment_date = Column(DateTime(timezone=True))
-    created_at = Column(
-        DateTime(timezone=True),
-        default=func.now())
-    updated_at = Column(
-        DateTime(timezone=True),
-        default=func.now(),
-        onupdate=func.now()
-    )
 
 
 def main():
