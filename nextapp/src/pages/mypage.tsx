@@ -38,7 +38,7 @@ const MyPage: React.FC = () => {
  return (
   <>
     <Header />
-    <div className="relative bg-cover text-center h-[100px]">
+    <div className="relative bg-cover text-center h-[100px] flex flex-col min-h-screen">
       <div className="relative h-[100px]">
         <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
         <h1 className="absolute inset-0 bg-white bg-opacity-50 text-5xl">Mypage</h1>
@@ -67,13 +67,17 @@ const MyPage: React.FC = () => {
        <div className='text-lg underline'>居住地</div>
        <p className='font-bold text-left flex-1'>{userInfo.address}</p>
      </div>
-     <div className="flex items-center space-x-2">
+     {/* <div className="flex items-center space-x-2">
        <div className='text-lg underline'>トークモード</div>
        <p className='font-bold text-left flex-1'>{userInfo.talk_mode}</p>
-     </div>
+     </div> */}
      <div className="flex items-center space-x-2">
        <div className='text-lg underline'>経験職種</div>
        <p className='font-bold text-left flex-1'>{userInfo.job_title}</p>
+     </div>
+     <div className="flex items-center space-x-2">
+       <div className='text-lg underline'>経験年数</div>
+       <p className='font-bold text-left flex-1'>{userInfo.years_of_experience}</p>
      </div>
    </div>
  </div>
@@ -96,8 +100,15 @@ const MyPage: React.FC = () => {
    )}
  </div>
 ))}
-    </div>
-    <Footer />
+      <footer className="bg-gray-100 text-center p-2 absolute bottom-0 w-full ">
+  <p className="text-sm text-gray-600">
+    © {new Date().getFullYear()} Harebare company. All rights reserved.
+  </p>
+  <a href="/privacy-policy" className="text-sm text-gray-600 hover:underline">
+    プライバシーポリシー
+  </a>
+</footer>
+</div>
   </>
 );
 }

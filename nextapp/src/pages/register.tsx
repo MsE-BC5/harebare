@@ -9,9 +9,9 @@ import {
 } from 'firebase/firestore';
 import checkout from "../pages/checkout";
 import Header from "./components/header"
-import Link from "next/link";
 import { prefectures } from 'jp-prefectures';
 import Image from "next/image";
+
 
 const Register = () => {
   const registrationInfo = useRegistrationInfo();
@@ -40,6 +40,7 @@ const Register = () => {
     initializeFirestore(); // 初回レンダリング時に Firestore インスタンスを初期化
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +68,7 @@ const Register = () => {
   }, [firestore, registrationInfo]);
 
 
+
   // 必須フィールドがすべて入力されているかどうかをチェックする関数
   const isFormValid = () => {
     return (
@@ -85,6 +87,7 @@ const Register = () => {
 const handleFormSubmission = async (event: any) => {
   console.log('handleFormSubmission called'); // Add this line
   event.preventDefault();
+
 
   // フォームのバリデーションを行う
   if (!isFormValid()) {
@@ -126,6 +129,7 @@ const handleFormSubmission = async (event: any) => {
         emailVerified: boolean;
         isAnonymous: boolean;
       };
+
 
       // Registerコンポーネント内でのuserPayloadの型をMyUserに変更
       const userPayload: MyUser = { uid: registrationInfo.id, emailVerified: false, isAnonymous: false };
@@ -210,7 +214,7 @@ const handleFormSubmission = async (event: any) => {
               <option value=""></option>
               <option value="男">男性</option>
               <option value="女">女性</option>
-              <option value="その他">無回答</option>
+              <option value="無回答">無回答</option>
             </select>
             </label>
           </div>
