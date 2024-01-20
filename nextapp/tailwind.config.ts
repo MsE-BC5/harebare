@@ -30,6 +30,8 @@ const config: Config = {
       spacing: {
         '128': '32rem', // 512px
         '144': '36rem', // 576px
+        '4': '16px',
+        '6': '24px',
         // 他に必要なサイズを追加
       },
       

@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // レスポンスを返す
       res.status(200).json({ success: true, message: 'Registration successful' });
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error during registration:', error.message);
       res.status(500).json({ success: false, message: 'Internal Server Error' });
     }

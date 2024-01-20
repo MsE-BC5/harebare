@@ -52,9 +52,7 @@ async def create_chat(chat: dict, db: Session = Depends(get_db)):
 
         回答は簡潔にわかりやすく、500文字以内でまとめてください。
         回答が300字を超える場合は箇条書きにするなど読みやすくしてください。
-        回答の口調は{user.talk_mode}を意識してください。
-        回答の最初で、{user.nick_name}に敬称をつけて呼びかけてください。
-        回答の最後にエールを送る一言をください。
+        回答の口調は論理的で厳しく、叱咤激励してください。        
         """
 
         prompt = PromptTemplate(

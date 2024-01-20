@@ -9,9 +9,10 @@ import {
 } from 'firebase/firestore';
 import checkout from "../pages/checkout";
 import Header from "./components/header"
-import Link from "next/link";
 import { prefectures } from 'jp-prefectures';
 import Image from "next/image";
+import { MyUser } from "./checkout"; 
+
 
 const Register = () => {
   const registrationInfo = useRegistrationInfo();
@@ -40,6 +41,7 @@ const Register = () => {
     initializeFirestore(); // 初回レンダリング時に Firestore インスタンスを初期化
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +69,7 @@ const Register = () => {
   }, [firestore, registrationInfo]);
 
 
+
   // 必須フィールドがすべて入力されているかどうかをチェックする関数
   const isFormValid = () => {
     return (
@@ -85,6 +88,7 @@ const Register = () => {
 const handleFormSubmission = async (event: any) => {
   console.log('handleFormSubmission called'); // Add this line
   event.preventDefault();
+
 
   // フォームのバリデーションを行う
   if (!isFormValid()) {
@@ -127,6 +131,7 @@ const handleFormSubmission = async (event: any) => {
         isAnonymous: boolean;
       };
 
+
       // Registerコンポーネント内でのuserPayloadの型をMyUserに変更
       const userPayload: MyUser = { uid: registrationInfo.id, emailVerified: false, isAnonymous: false };
 
@@ -147,6 +152,147 @@ const handleFormSubmission = async (event: any) => {
   }
 };
 
+//修正中
+// import React, { useState, useEffect } from "react";
+// import { useRegistrationInfo } from "../../context/auth";
+// import { useRouter } from "next/router";
+// import {
+//   Firestore,
+//   getFirestore,
+//   doc,
+//   getDoc,
+// } from 'firebase/firestore';
+// import checkout from "./checkout";  // MyUser型をcheckout.tsxからインポート
+// import Header from "./components/header"
+// import { prefectures } from 'jp-prefectures';
+// import Image from "next/image";
+
+// const Register = () => {
+//   const registrationInfo = useRegistrationInfo();
+//   const router = useRouter();
+
+//   // State for form fields
+//   const [name, setName] = useState(registrationInfo?.name || "");
+//   const [email, setEmail] = useState(registrationInfo?.email || "");
+//   const [nick_name, setNickname] = useState("");
+//   const [gender, setGender] = useState("");
+//   const [age_range, setAge] = useState("");
+//   const [address, setAddress] = useState("");
+//   const [job_title, setJobTitle] = useState("");
+//   const [years_of_experience, setYearsExperience] = useState("");
+//   const [talk_mode, setTalkMode] = useState("やさしく");
+//   const [firestore, setFirestore] = useState<Firestore | null>(null); // Firestore インスタンスの状態を保持
+
+//   useEffect(() => {
+//     const initializeFirestore = () => {
+//       // Firestore インスタンスを取得
+//       const firestoreInstance: Firestore = getFirestore();
+//       setFirestore(firestoreInstance);
+//     };
+
+//     initializeFirestore(); // 初回レンダリング時に Firestore インスタンスを初期化
+//   }, []);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         // Firestore インスタンスが存在し、かつ registrationInfo と id がある場合にユーザーデータを取得
+//         if (firestore && registrationInfo && registrationInfo.id) {
+//           const userRef = doc(firestore, 'users', registrationInfo.id);
+//           const userDoc = await getDoc(userRef);
+
+//           if (userDoc.exists()) {
+//             const userData = userDoc.data();
+//             // フォームの初期値をセット
+//             setName(userData?.name || "");
+//             setEmail(userData?.email || "");
+//           }
+//         }
+//       } catch (error) {
+//         console.error('Error fetching user data:', error);
+//       }
+//     };
+
+//     // registrationInfo が存在し、かつ id がある場合にデータを取得
+//     if (registrationInfo && registrationInfo.id) {
+//       fetchData();
+//     }
+//   }, [firestore, registrationInfo]);
+
+//   // 必須フィールドがすべて入力されているかどうかをチェックする関数
+//   const isFormValid = () => {
+//     return (
+//       name.trim() !== '' &&
+//       email.trim() !== '' &&
+//       nick_name.trim() !== '' &&
+//       gender.trim() !== '' &&
+//       age_range.trim() !== '' &&
+//       address.trim() !== '' &&
+//       job_title.trim() !== '' &&
+//       years_of_experience.trim() !== '' &&
+//       talk_mode.trim() !== ''
+//     );
+//   };
+
+//   const handleFormSubmission = async (event: any) => {
+//     console.log('handleFormSubmission called'); // Add this line
+//     event.preventDefault();
+
+//     // フォームのバリデーションを行う
+//     if (!isFormValid()) {
+//       // 必須フィールドが適切に入力されていない場合は、ここで処理を中断
+//       alert('すべての必須フィールドを入力してください。');
+//       return; // フォームが無効な場合はここで処理を中断
+//     }
+
+//     try {
+//       // Firestore インスタンスが存在するか確認してからコレクションを参照
+//       if (firestore && registrationInfo && registrationInfo.id) {
+//         console.log('All conditions met'); // Add this line
+//         const userRef = doc(firestore, 'users', registrationInfo.id);
+
+//         // FastAPIにデータを保存
+//         const response = await fetch('api/register', {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             firebase_uid: registrationInfo?.id,
+//             name,
+//             nick_name,
+//             email,
+//             gender,
+//             age_range,
+//             address,
+//             talk_mode,
+//             job_title,
+//             years_of_experience,
+//           }),
+//         });
+
+//         type MyUser = {
+//         uid: string;
+//         emailVerified: boolean;
+//         isAnonymous: boolean;
+//       };
+
+//         // Registerコンポーネント内でのuserPayloadの型をMyUserに変更
+//         const userPayload: MyUser = { uid: registrationInfo.id, emailVerified: false, isAnonymous: false };
+
+//         // ユーザー登録が完了したらcheckout関数を呼び出す
+//         await checkout( userPayload, router );
+//       } else {
+//         console.log('Some conditions not met'); // Add this line
+//         console.error('Firestore is undefined');
+//         // エラーハンドリングやユーザーに通知する処理を追加
+//       }
+//     } catch (error) {
+//       console.error('Error adding user data:', error);
+//     }
+//   };
+
+  
 
   return (
     <>
@@ -210,7 +356,7 @@ const handleFormSubmission = async (event: any) => {
               <option value=""></option>
               <option value="男">男性</option>
               <option value="女">女性</option>
-              <option value="その他">無回答</option>
+              <option value="無回答">無回答</option>
             </select>
             </label>
           </div>
@@ -326,6 +472,15 @@ const handleFormSubmission = async (event: any) => {
         </form>
       </div>
       </div>
+      <footer className="bg-gray-100 text-center p-2 absolute bottom-0 w-full ">
+  <p className="text-sm text-gray-600">
+    © {new Date().getFullYear()} Harebare company. All rights reserved.
+  </p>
+  <a href="/privacy-policy" className="text-sm text-gray-600 hover:underline">
+    プライバシーポリシー
+  </a>
+</footer>
+      
     </>
   );
   };

@@ -45,7 +45,7 @@ function Home() {
 
       // POSTのデータに改行を適用
       const formattedPostData = formatTextWithNewlines(postDataResult.data.response);
- 
+
       setData({
         postData: formattedPostData
       });
@@ -60,7 +60,7 @@ function Home() {
       <div className="relative  bg-cover bg-red-50 text-center">
         <div className="relative h-[1300px]">
           <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
-        <div className="absolute inset-0 bg-white bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-white bg-opacity-60"></div>
         </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
       <div className="flex items-center mt-5">
@@ -70,7 +70,6 @@ function Home() {
 
       <div className="text-center" style={{ marginTop: '100px' }}>
         <textarea
-          type="text"
           value={queryText}
           onChange={(e) => setQueryText(e.target.value)}
           placeholder="悩みを入力してね"

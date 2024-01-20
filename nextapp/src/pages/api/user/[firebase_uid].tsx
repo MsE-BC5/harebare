@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req, res) {
+export default async function handler(req:any, res:any) {
  const { firebase_uid } = req.query;
 
  try {

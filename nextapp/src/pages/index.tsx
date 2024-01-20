@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/header"
-import Footer from "./components/footer"
 import { useRouter } from "next/router";
 import { useRegistrationInfo } from '../../context/auth';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
@@ -14,6 +13,8 @@ export default function Main() {
   const handleLogin = async () => {
     try {
       const customerRef = doc(collection(db, 'customers'), registrationInfo.id);
+      console.log('user object:',registrationInfo );
+
       
       // paymentsコレクションのドキュメントIDを取得
       const paymentsColRef = collection(customerRef, 'payments');
@@ -35,10 +36,10 @@ export default function Main() {
     <>
 <Header />
 <div className="relative text-2xl text-center flex flex-col min-h-screen">
-  <div className="relative bg-cover h-[300px]">
+  <div className="relative bg-cover h-[300px] ">
     {/* 上部に配置する背景画像 */}
-    <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
-    <div className="absolute inset-0 bg-white bg-opacity-50"></div>
+    <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover"/>
+    <div className="absolute inset-0 bg-white bg-opacity-60"></div>
 
     {/* 上に重ねるコンテンツ */}
     <div className="absolute inset-0 flex flex-col items-center justify-center z-10">

@@ -13,7 +13,7 @@ export default function Header() {
   };
 
   return (
-    <header className="py-6 px-4 flex justify-between items-center bg-brown-200 w-full z-50">
+    <header className="py-6 px-4 flex justify-between items-center bg-brown-200 w-full z-50 ">
 
       <nav
         className={
