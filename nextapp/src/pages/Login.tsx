@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { addDoc, collection, doc, getDoc, onSnapshot, getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User,onAuthStateChanged } from 'firebase/auth';
 import Header from "./components/header"
-import Footer from "./components/footer"
 import Image from "next/image";
 
 interface CheckoutComponentProps {
@@ -71,7 +70,7 @@ const loginWithGoogle = async () => {
   return (
     <>
 <Header />
-    <div className="text-2xl text-center">
+    <div className="text-2xl text-center flex flex-col min-h-screen">
       <div className="relative bg-cover h-[500px]">
         <Image src="/colorBack.jpg" alt="Background Image" layout="fill" objectFit="cover" />
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
@@ -111,7 +110,14 @@ const loginWithGoogle = async () => {
         </div>
         </div>
         </div>
-        <Footer />
+        <footer className="bg-gray-100 text-center p-2 absolute bottom-0 w-full ">
+  <p className="text-sm text-gray-600">
+    © {new Date().getFullYear()} Harebare company. All rights reserved.
+  </p>
+  <a href="/privacy-policy" className="text-sm text-gray-600 hover:underline">
+    プライバシーポリシー
+  </a>
+</footer>
     </>
   );
 };
