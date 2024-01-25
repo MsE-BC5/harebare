@@ -14,7 +14,7 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ JST-9
 ENV TERM xterm
 
-# Python パスに serverapi ディレクトリを追加
+## Python パスに serverapi ディレクトリを追加
 ENV PYTHONPATH=/app/serverapi
 
 #Poetryを公式のスクリプトを使用してインストール
