@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { logout } from "../../lib/auth";
+import { logout } from "../lib/auth";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "./components/header"

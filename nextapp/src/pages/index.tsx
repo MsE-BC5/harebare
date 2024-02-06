@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/header"
 import { useRouter } from "next/router";
-import { useRegistrationInfo } from '../../context/auth';
+import { useRegistrationInfo } from '../context/auth';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { db } from '../lib/firebase';
 
 export default function Main() {
   const router = useRouter();

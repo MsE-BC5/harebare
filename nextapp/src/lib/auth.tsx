@@ -1,6 +1,3 @@
-//lib/auth.ts
-
-
 //　Google アカウントを使用した認証に必要なGoogleAuthProvider,
 // 認証ポップアップを表示するsignInWithPopup,
 // 認証に成功したユーザー情報を取得するUserCredential,
@@ -35,16 +32,3 @@ import {
     return signOut(auth);
     
   };
-
-  // export const getUserRole = async (uid: string): Promise<string | null> => {
-  //   try {
-  //     const userDoc = await getDoc(doc(db, 'users', uid));
-  //     if (userDoc.exists()) {
-  //       return userDoc.data().role;
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     console.error('ユーザーロール取得エラー:', error);
-  //     throw error;
-  //   }
-  // };

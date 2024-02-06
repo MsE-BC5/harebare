@@ -59,7 +59,8 @@ services:
     volumes:
       - ./nextapp:/usr/src/app
       - /user/src/app/node_modules
-    command: npm run dev
+    command: npm run start  # ビルド時
+    # command: npm run dev # 開発環境時
     networks:
       - local-net
 

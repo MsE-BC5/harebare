@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Header from "./components/header";
-import { useRegistrationInfo } from "../../context/auth"; // useRegistrationInfoをインポート
+import { useRegistrationInfo } from "../context/auth"; // useRegistrationInfoをインポート
 import Link from "next/link";
 
 function Home() {

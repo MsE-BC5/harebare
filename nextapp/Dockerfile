@@ -9,9 +9,14 @@ COPY . .
 
 # パッケージをインストール
 RUN npm install
+#本番環境
+RUN npm run build
 
 # 3000番ポートでリッスン
 EXPOSE 3000
 
 # React の起動
-CMD ["npm", "run", "dev"]
+#開発環境時
+# CMD ["npm", "run", "dev"]
+#本番環境
+CMD [ "npm", "run", "start" ] 
