@@ -1,6 +1,3 @@
-// lib/firebase.ts
-//firebaseの初期化
-
 //　認証に必要な要素をインポート
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
