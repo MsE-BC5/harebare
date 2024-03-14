@@ -44,7 +44,6 @@ export default function Main() {
     {/* 上に重ねるコンテンツ */}
     <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
       <div className="flex items-center mt-5">
-        {/* 画像のサイズを適切な値に設定してください */}
         <Image src="/cloud.PNG" alt="Cloud Image" width={300} height={300} />
         <Image src="/harebare.PNG" alt="Harebare Image" width={550} height={300} />
       </div>
@@ -126,7 +125,6 @@ export default function Main() {
     プライバシーポリシー
   </a>
 </footer>
-{/* <Footer /> */}
 </div>
   </>
   );
